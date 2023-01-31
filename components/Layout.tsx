@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
     <>
     <Meta />
     <Navbar />
-      <main className="flex flex-col item-center h-screen py-16 px-2 mt-16">
+      <main className="flex flex-col items-center py-16 px-4 md:px-8 lg:px-16 mt-16">
         {children}
       </main>
     </>
