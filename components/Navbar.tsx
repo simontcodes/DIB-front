@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 h-16 w-screen bg-emerald-900">
+    <nav className="fixed top-0 h-16 w-screen bg-emerald-900 z-10">
       <div className='flex px-8 py-4 w-full h-full items-center justify-between'>
         <div className='font-extrabold select-none text-4xl text-white'>
           DIB
@@ -22,6 +22,11 @@ const Navbar = () => {
           </li>
           <li>
             <Link href='/developers'>Developers</Link>
+          </li>
+        </ul>
+        <ul className='flex gap-4 text-white'>
+          <li className='text-green'>
+            <Link href='/dashboard'>UserDashboard (Temp)</Link>
           </li>
         </ul>
         <div className='flex gap-2'>
