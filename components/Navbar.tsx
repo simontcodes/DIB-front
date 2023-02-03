@@ -24,6 +24,11 @@ const Navbar = () => {
             <Link href='/developers'>Developers</Link>
           </li>
         </ul>
+        <ul className='flex gap-4 text-white'>
+          <li className='text-green'>
+            <Link href='/dashboard'>UserDashboard (Temp)</Link>
+          </li>
+        </ul>
         <div className='flex gap-2'>
           <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Apply</button>
           <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Log in</button>
