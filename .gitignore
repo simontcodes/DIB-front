@@ -18,6 +18,9 @@
 # misc
 .DS_Store
 *.pem
+/.vscode
+
+/tempfolder
 
 # debug
 npm-debug.log*

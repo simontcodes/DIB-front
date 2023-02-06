@@ -1,39 +1,35 @@
-import { createAvatar } from '@dicebear/core';
-import * as peeps from '@dicebear/open-peeps';
-import axios from 'axios';
+type User = {
+  _id: string,
+  name: string,
+  email: string,
+  password: string,
+  role: string,
+  __v: number
+}
 
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react';
+type PageProps = {
+  params: {
+    userId: string
+  }
+}
 
-export default function Dashboard() {
+export default async function Dashboard(props: PageProps) {
 
-  const [ name, setName ] = useState('')
+  // console.log(props.params.userId)
 
-  const router = useRouter()
-  const userId = router.query.userId
-
-  const username = "Schubert Kulminko"
-
+  const fetchUser = async (userId: string) => {
+    const res = await fetch(`http://localhost:8080/dibs/${userId}`)
+    const user: User = await res.json()
+    console.log(user)
+    return user
+  }
+  
   const mockUser = {
     name: "Schubert Kulminko",
     roles: [true, true, true, true, true, true, true]
   }
- 
-  useEffect(() => {
-    axios.get(`http://localhost:8080/dibs/${userId}`).then((res) => {
-      console.log(res.data)
-      setName(res.data.name)
-    })
-  },[])
 
-  const genAvatar = () => {
-    const avatar = createAvatar(peeps, {
-      seed: name,
-      flip: true,
-      translateX: 5,
-    });
-    return avatar.toDataUriSync();
-  }
+  const user = await fetchUser(props.params.userId)
 
   return (
     <div className="w-full max-w-[1280px]">
@@ -41,10 +37,10 @@ export default function Dashboard() {
 
       <div className='flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl'>
         <div className='flex justify-center items-center absolute bottom-8 right-16 h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600'>
-          <img className='w-full object-cover rounded-full' src={genAvatar()} loading="lazy"/>
+          <img className='w-full object-cover rounded-full' src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${user.name}&flip=true&translateX=5`} loading="lazy" alt='profile'/>
         </div>
         <div className='flex flex-col gap-4'>
-          <span className='text-4xl font-bold'>Hey, {name}</span>
+          <span className='text-4xl font-bold'>Hey, {user.name}</span>
           <p>How are you today? Ready to tackle some projects?</p>
         </div>
       </div>
