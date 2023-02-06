@@ -1,39 +1,63 @@
-import { createAvatar } from '@dicebear/core';
-import * as peeps from '@dicebear/open-peeps';
+// import { createAvatar } from '@dicebear/core';
+// import * as peeps from '@dicebear/open-peeps';
 import axios from 'axios';
 
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
 
+// const fetchUser = async () => {
+//   const router = useRouter()
+//   const userId = router.query.userId
+  
+//   const res = await fetch(`http://localhost:8080/dibs/${userId}`)
+//   const user: User[] = await res.json()
+//   return user
+// }
+
+// export type User = {
+//   _id: string,
+//   name: string,
+//   email: string,
+//   password: string,
+//   role: string,
+//   __v: number
+// }
+
+
+
 export default function Dashboard() {
 
-  const [ name, setName ] = useState('')
-
-  const router = useRouter()
-  const userId = router.query.userId
-
   const username = "Schubert Kulminko"
+
+  // const genAvatar = () => {
+  //   const avatar = createAvatar(peeps, {
+  //     // seed: name,
+  //     seed: username,
+  //     flip: true,
+  //     translateX: 5,
+  //   });
+
+  //   return avatar.toDataUriSync();
+  // }
+
+  // const [ name, setName ] = useState('')
+
+  // const router = useRouter()
+  // const userId = router.query.userId
 
   const mockUser = {
     name: "Schubert Kulminko",
     roles: [true, true, true, true, true, true, true]
   }
  
-  useEffect(() => {
-    axios.get(`http://localhost:8080/dibs/${userId}`).then((res) => {
-      console.log(res.data)
-      setName(res.data.name)
-    })
-  },[])
+  // useEffect(() => {
+  //   axios.get(`http://localhost:8080/dibs/${userId}`).then((res) => {
+  //     console.log(res.data)
+  //     setName(res.data.name)
+  //   })
+  // },[])
 
-  const genAvatar = () => {
-    const avatar = createAvatar(peeps, {
-      seed: name,
-      flip: true,
-      translateX: 5,
-    });
-    return avatar.toDataUriSync();
-  }
+  // const user = await fetchUser()
 
   return (
     <div className="w-full max-w-[1280px]">
@@ -41,10 +65,12 @@ export default function Dashboard() {
 
       <div className='flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl'>
         <div className='flex justify-center items-center absolute bottom-8 right-16 h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600'>
-          <img className='w-full object-cover rounded-full' src={genAvatar()} loading="lazy"/>
+          {/* <img className='w-full object-cover rounded-full' src={genAvatar()} loading="lazy" alt='profile'/> */}
+          <img className='w-full object-cover rounded-full' src={`https://via.placeholder.com/150`} loading="lazy" alt='profile'/>
         </div>
         <div className='flex flex-col gap-4'>
-          <span className='text-4xl font-bold'>Hey, {name}</span>
+          {/* <span className='text-4xl font-bold'>Hey, {name}</span> */}
+          <span className='text-4xl font-bold'>Hey, {username}</span>
           <p>How are you today? Ready to tackle some projects?</p>
         </div>
       </div>
@@ -97,5 +123,7 @@ export default function Dashboard() {
       </div>
     </div>
   )
+
+  // return <div>Something</div>
 }
 
