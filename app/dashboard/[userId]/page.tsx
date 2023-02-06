@@ -1,6 +1,3 @@
-// import { createAvatar } from '@dicebear/core';
-// import * as peeps from '@dicebear/open-peeps';
-
 type User = {
   _id: string,
   name: string,
@@ -18,7 +15,7 @@ type PageProps = {
 
 export default async function Dashboard(props: PageProps) {
 
-  console.log(props.params.userId)
+  // console.log(props.params.userId)
 
   const fetchUser = async (userId: string) => {
     const res = await fetch(`http://localhost:8080/dibs/${userId}`)
@@ -33,18 +30,6 @@ export default async function Dashboard(props: PageProps) {
   }
 
   const user = await fetchUser(props.params.userId)
-
-  // const genAvatar = () => {
-    // const avatar = createAvatar(peeps, {
-    //   // seed: name,
-    //   seed: username,
-    //   flip: true,
-    //   translateX: 5,
-    // });
-
-  //   console.log(avatar)
-  //   return avatar.toDataUriSync();
-  // }
 
   return (
     <div className="w-full max-w-[1280px]">
