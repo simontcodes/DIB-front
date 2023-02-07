@@ -1,3 +1,5 @@
+import Dashboard from './dashboard';
+
 export default function ShowcasePage() {
 
   const completedProjects = [1, 2, 3, 4, 5, 6]
@@ -40,5 +42,7 @@ export default function ShowcasePage() {
       </section>
       
     </div>
+
+<Dashboard />
   )
 }
