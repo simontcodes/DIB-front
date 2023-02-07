@@ -8,7 +8,7 @@ export default function ChangePreferences() {
 
   const maxChecked = 3
 
-  const checkHowManyChecked = (e) => {
+  const checkHowManyChecked = (e: any) => {
     const checked = document.querySelectorAll(".check:checked")
     const notChecked = document.querySelectorAll(".check:not(:checked)")
     console.log(checked, notChecked)
