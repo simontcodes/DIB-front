@@ -93,7 +93,7 @@ export default async function Settings(props: PageProps) {
         </div>
       </div>
 
-      <ChangePreferences />
+      <ChangePreferences user={user}/>
     </div>
   )
 }

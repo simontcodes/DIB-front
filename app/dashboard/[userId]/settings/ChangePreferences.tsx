@@ -2,7 +2,18 @@
 
 import React, { useState, useEffect } from 'react'
 
-export default function ChangePreferences() {
+type User = {
+  _id: string,
+  name: string,
+  email: string,
+  password: string,
+  role: string,
+  __v: number
+}
+
+export default function ChangePreferences({user}: {user: User}) {
+
+  console.log(user)
 
   const [name, setName] = useState('')
 
@@ -28,10 +39,12 @@ export default function ChangePreferences() {
     // Try to implement logic to disable the unused checkboxes
   }
   
-
   useEffect(() => {
     const checkboxToCheck = document.querySelectorAll(".check")
     for (let i = 0; i < checkboxToCheck.length; i++) checkboxToCheck[i].addEventListener("click", checkHowManyChecked)
+
+    setName(user.name)
+    // console.log(fetchUser(props.params.userId))
   },[])
 
   return (
