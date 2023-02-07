@@ -67,7 +67,7 @@ export default function ChangePreferences({user}: {user: User}) {
 
         <div className='flex flex-col gap-4'>
           <div>
-            <span className='text-4xl font-bold'>Hey,</span>
+            <label className='text-4xl font-bold'>Hey,</label>
             <input
               className='border text-4xl font-bold ml-2 bg-transparent'
               type="text"
@@ -81,45 +81,45 @@ export default function ChangePreferences({user}: {user: User}) {
       </div>
 
       <div className='flex flex-col mt-4 bg-emerald-500 rounded-3xl p-4' id="roles-bar">
-        <div className='flex gap-2'>
+        <div className='flex gap-2 items-center'>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md '>
             <div className='h-4 w-4 bg-purple-500 rounded-full'></div>
-            <span className='font-bold text-white'>FullStack</span>
-            <input className="ml-1 check" type="checkbox" value="fullstack" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="fullstack">FullStack</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="fullstack" id="fullstack"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-green-500 rounded-full'></div>
-            <span className='font-bold text-white'>Front-End</span>
-            <input className="ml-1 check" type="checkbox" value="fronteend" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="frontend">Front-End</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="fronteend" id="frontend"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-blue-500 rounded-full'></div>
-            <span className='font-bold text-white'>Back-End</span>
-            <input className="ml-1 check" type="checkbox" value="backend" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="backend">Back-End</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="backend" id="backend"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-yellow-500 rounded-full'></div>
-            <span className='font-bold text-white'>PM</span>
-            <input className="ml-1 check" type="checkbox" value="pm" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="pm">PM</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="pm" id="pm"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-red-500 rounded-full'></div>
-            <span className='font-bold text-white'>QA Tester</span>
-            <input className="ml-1 check" type="checkbox" value="qatester" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="qatester">QA Tester</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="qatester" id="qatester"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-pink-500 rounded-full'></div>
-            <span className='font-bold text-white'>UX/UI</span>
-            <input className="ml-1 check" type="checkbox" value="uxui" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="uxui">UX/UI</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="uxui" id="uxui"/>
           </div>
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md'>
             <div className='h-4 w-4 bg-black rounded-full'></div>
-            <span className='font-bold text-white'>DevOps</span>
-            <input className="ml-1 check" type="checkbox" value="devops" />
+            <label className='font-bold text-white cursor-pointer' htmlFor="devops">DevOps</label>
+            <input className="ml-1 check cursor-pointer" type="checkbox" value="devops" id="devops"/>
           </div>
+          <span className='font-bold text-seashell-400 drop-shadow'>* Please Select up to 3 Roles *</span>
         </div>
       </div>
-
 
     </form>
   )
