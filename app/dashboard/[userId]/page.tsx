@@ -1,3 +1,6 @@
+import Image from "next/image"
+import Link from "next/link"
+
 type User = {
   _id: string,
   name: string,
@@ -39,6 +42,21 @@ export default async function Dashboard(props: PageProps) {
         <div className='flex justify-center items-center absolute bottom-8 right-16 h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600'>
           <img className='w-full object-cover rounded-full' src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${user.name}&flip=true&translateX=5`} loading="lazy" alt='profile'/>
         </div>
+        <Link className="absolute right-4 top-4 z-10 h-8 w-8" href={`/dashboard/${props.params.userId}/settings`}>
+          <Image 
+            src="/settings.svg" 
+            alt="settings" 
+            width="32" 
+            height="32" 
+          />
+        </Link>
+        <Image 
+          className="absolute right-4 top-4"
+          src="/settings.svg" 
+          alt="settings" 
+          width="32" 
+          height="32" 
+        />
         <div className='flex flex-col gap-4'>
           <span className='text-4xl font-bold'>Hey, {user.name}</span>
           <p>How are you today? Ready to tackle some projects?</p>
@@ -91,6 +109,7 @@ export default async function Dashboard(props: PageProps) {
           :""}
         </div>
       </div>
+
     </div>
   )
 }
