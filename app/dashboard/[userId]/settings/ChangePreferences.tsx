@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function ChangePreferences() {
 
@@ -10,16 +10,28 @@ export default function ChangePreferences() {
 
   const checkHowManyChecked = (e) => {
     const checked = document.querySelectorAll(".check:checked")
-    console.log(checked)
+    const notChecked = document.querySelectorAll(".check:not(:checked)")
+    console.log(checked, notChecked)
     if (checked.length >= maxChecked + 1) {
       e.preventDefault()
+      // Array.from(notChecked).forEach((el) => {
+      //   console.log(el.ariaDisabled)
+      //   el.ariaDisabled = 'true'
+      // })
+    } else {
+      // Array.from(notChecked).forEach((el) => {
+      //   console.log(el.ariaDisabled)
+      //   el.ariaDisabled = 'null'
+      // })
     }
+
+    // Try to implement logic to disable the unused checkboxes
   }
+  
 
   useEffect(() => {
     const checkboxToCheck = document.querySelectorAll(".check")
     for (let i = 0; i < checkboxToCheck.length; i++) checkboxToCheck[i].addEventListener("click", checkHowManyChecked)
-    console.log(checkboxToCheck)
   },[])
 
   return (
