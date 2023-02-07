@@ -13,12 +13,9 @@ type User = {
 
 export default function ChangePreferences({user}: {user: User}) {
 
-  console.log(user)
-
   const [name, setName] = useState('')
 
   const maxChecked = 3
-
   const checkHowManyChecked = (e: any) => {
     const checked = document.querySelectorAll(".check:checked")
     const notChecked = document.querySelectorAll(".check:not(:checked)")
@@ -44,7 +41,6 @@ export default function ChangePreferences({user}: {user: User}) {
     for (let i = 0; i < checkboxToCheck.length; i++) checkboxToCheck[i].addEventListener("click", checkHowManyChecked)
 
     setName(user.name)
-    // console.log(fetchUser(props.params.userId))
   },[])
 
   return (
@@ -54,7 +50,7 @@ export default function ChangePreferences({user}: {user: User}) {
       <div className='flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl'>
         <div className="flex flex-col absolute bottom-2 right-16 items-center">
           <div className='flex justify-center items-center h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600'>
-            {/* <img className='w-full object-cover rounded-full' src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${user.name}&flip=true&translateX=5`} loading="lazy" alt='profile' /> */}
+            <img className='w-full object-cover rounded-full' src={`https://api.dicebear.com/5.x/open-peeps/svg?seed=${user.name}&flip=true&translateX=5`} loading="lazy" alt='profile' />
           </div>
 
           <div className="flex relative w-4/5 justify-center gap-4">
@@ -123,11 +119,6 @@ export default function ChangePreferences({user}: {user: User}) {
           </div>
         </div>
       </div>
-
-
-
-
-
 
 
     </form>
