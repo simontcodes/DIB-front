@@ -2,14 +2,35 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import axios from 'axios'
 
 export default function Login() {
 
-  const [ username, setUsername ] = useState('')
+  const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
+  const [ rememberMe, setRememberMe ] = useState(false)
 
-  const handleSubmitLogin = () => {
+  const loginUser = async (email: string, password: string) => {
+    console.log("loging in")
+    console.log(email, password, rememberMe)
+    const res = await axios.post(`http://localhost:8080/login/dibs/`, {email, password})
+    console.log(res.data)
+    const token = res.data.token
+
+    localStorage.setItem("JWTtoken", res.data.token)
+    localStorage.setItem("DIBS-email", res.data.email)
+
+    console.log(token)
+    // const res = await fetch(`http://localhost:8080/dibs/${userId}`)
+    // const user: User = await res.json()
+    // return user
+  }
+
+  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     console.log("clicked")
+    e.preventDefault()
+
+    loginUser(email, password)
   }
 
   return (
@@ -24,20 +45,20 @@ export default function Login() {
             </div>
             <form className='flex flex-col gap-4' onSubmit={handleSubmitLogin}>
               <div className='flex flex-col'>
-                <label className='text-xs font-bold uppercase mb-1'>username</label>
+                <label className='text-xs font-bold uppercase mb-1'>email</label>
                 <input
                   className='text-md rounded-md p-3 bg-emerald-100'
                   type="text"
-                  placeholder="Username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className='flex flex-col'>
                 <label className='text-xs font-bold uppercase mb-1'>password</label>
                 <input
                   className='text-md rounded-md p-3 bg-emerald-100'
-                  type="text"
+                  type="password"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -46,7 +67,7 @@ export default function Login() {
               <button className='w-full p-3 bg-emerald-600 rounded-md'>Sign In</button>
               <div className='flex justify-between'>
                 <div>
-                  <input id="uploaded" type="checkbox" value="uploaded" name="avatar-type" />
+                  <input id="uploaded" type="checkbox" value="uploaded" name="avatar-type" checked={rememberMe} onChange={(e) => setRememberMe(!rememberMe)} />
                   <label className="ml-2" htmlFor="uploaded">Remember me?</label>
                 </div>
                 <div>
