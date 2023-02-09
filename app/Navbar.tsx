@@ -31,9 +31,19 @@ const Navbar = () => {
             <Link href={`/dashboard/${tempUserId}`}>UserDashboard (Temp)</Link>
           </li>
         </ul>
-        <div className='flex gap-2'>
-          <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Apply</button>
-          <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Log in</button>
+        <div className='flex items-center gap-2'>
+          {/* <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Apply</button> */}
+          {/* <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Log in</button> */}
+          <ul>
+            <li>
+              <Link className='px-2 py-[6px] rounded bg-emerald-600 text-white' href={`/apply`}>Apply</Link>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <Link className='px-2 py-[6px] rounded bg-emerald-600 text-white' href={`/login`}>Log in</Link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
