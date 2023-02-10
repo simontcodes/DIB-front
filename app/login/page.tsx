@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import axios from 'axios'
 
@@ -10,27 +11,13 @@ export default function Login() {
   const [ password, setPassword ] = useState('')
   const [ rememberMe, setRememberMe ] = useState(false)
 
-  const loginUser = async (email: string, password: string) => {
-    console.log("loging in")
-    console.log(email, password, rememberMe)
-    const res = await axios.post(`http://localhost:8080/login/dibs/`, {email, password})
-    console.log(res.data)
-    const token = res.data.token
-
-    localStorage.setItem("JWTtoken", res.data.token)
-    localStorage.setItem("DIBS-email", res.data.email)
-
-    console.log(token)
-    // const res = await fetch(`http://localhost:8080/dibs/${userId}`)
-    // const user: User = await res.json()
-    // return user
-  }
-
-  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("clicked")
-    e.preventDefault()
-
-    loginUser(email, password)
+  const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: true,
+      callbackUrl: "/"
+    })
   }
 
   return (
