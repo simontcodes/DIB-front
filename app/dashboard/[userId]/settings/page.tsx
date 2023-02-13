@@ -1,30 +1,32 @@
 'use client'
 
-// import ChangePreferences from "./ChangePreferences"
+import { useRouter } from "next/navigation"
 
 import { useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { User } from 'types/interfaces'
 
-// type User = {
-//   _id: string,
-//   name: string,
-//   email: string,
-//   password: string,
-//   role: string,
-//   __v: number
-// }
+type updateBody = {
+  name: string,
+  role: string[] | undefined[],
+  // role: string | undefined,
+}
 
-// type PageProps = {
-//   params: {
-//     userId: string
-//   }
-// }
+type selectedRolesObject = {
+  "Fullstack Developer": boolean,
+  "Frontend Developer": boolean,
+  "Backend Developer": boolean,
+  "Project Manager": boolean,
+  "QA Tester": boolean,
+  "UX/UI": boolean,
+  "DevOps": boolean,
+}
 
 // export default async function Settings(props: PageProps) {
 export default function Settings() {
 
   const { data: session } = useSession()
+  const router = useRouter()
 
   const [ userData, setUserData ] = useState<User>()
 
@@ -39,7 +41,7 @@ export default function Settings() {
   const [ uxui, setUxui ] = useState(false)
   const [ devops, setDevops ] = useState(false)
 
-
+  // GET REQUEST TO FETCH USER TO PREFILL FORM
   const fetchUser = async () => {
     const res = await fetch(`http://localhost:8080/dibs/${session?.user?.id}`, {
       method: "GET",
@@ -49,38 +51,38 @@ export default function Settings() {
       }
     });
     const data = await res.json()
-    // return data
     setUserData(data)
     setName(data.name)
+    console.log(data.role)
     setRoles(data.role)
-
-    // setRoles2(["Fullstack Developer", "Frontend Developer"])
   }
 
-  // const setRoles2 = (roles:string[]) => {
-  //   roles.forEach(role => {
-  //     switch(role) {
-  //       case "Fullstack Developer": setFullstack(true); break
-  //       case "Frontend Developer": setFrontend(true); break
-  //       case "Backend Developer": setBackend(true); break
-  //       case "Project Manager": setPm(true); break
-  //       case "QA Tester": setQatester(true); break
-  //       case "UX/UI": setUxui(true); break
-  //       case "DevOps": setDevops(true); break
-  //     }
-  //   });
-  // }
+  // PATCH REQUEST TO UPDATE USER
+  const updateUser = async (updateBody: updateBody) => {
+    const res = await fetch(`http://localhost:8080/dibs/${session?.user?.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updateBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${session?.user?.token}`
+      }
+    })
+    console.log(res)
+  }
 
-  const setRoles = (role:string) => {
-    switch(role) {
-      case "Fullstack Developer": setFullstack(true); break
-      case "Frontend Developer": setFrontend(true); break
-      case "Backend Developer": setBackend(true); break
-      case "Project Manager": setPm(true); break
-      case "QA Tester": setQatester(true); break
-      case "UX/UI": setUxui(true); break
-      case "DevOps": setDevops(true); break
-    }
+  // PRECHECK CHECKBOXES IN FORM DEPENDING ON USERS ROLES
+  const setRoles = (roles:string[]) => {
+    roles.forEach(role => {
+      switch(role) {
+        case "Fullstack Developer": setFullstack(true); break
+        case "Frontend Developer": setFrontend(true); break
+        case "Backend Developer": setBackend(true); break
+        case "Project Manager": setPm(true); break
+        case "QA Tester": setQatester(true); break
+        case "UX/UI": setUxui(true); break
+        case "DevOps": setDevops(true); break
+      }
+    });
   }
 
   const maxChecked = 3
@@ -104,14 +106,39 @@ export default function Settings() {
     // Try to implement logic to disable the unused checkboxes
   }
 
+  // GET ROLE DEPENDING ON BOOLEAN VALUE
+  const getKeyByValue = (object:selectedRolesObject, value:boolean) => {
+    return Object.keys(object).filter(key => object[key as keyof selectedRolesObject] === value)
+  }
+
+  // FORM SUBMIT FUNCTION
+  const handlePreferenceSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const selectedRoles = {
+      "Fullstack Developer":fullstack,
+      "Frontend Developer":frontend,
+      "Backend Developer":backend,
+      "Project Manager":pm,
+      "QA Tester":qatester,
+      "UX/UI":uxui,
+      "DevOps":devops,
+    }
+
+    const body = {
+      name : name,
+      role : getKeyByValue(selectedRoles, true)
+    }
+
+    updateUser(body)
+    router.push(`/dashboard/${session?.user?.id}`)
+  }
+
   useEffect(() => {
     const checkboxToCheck = document.querySelectorAll(".check")
     for (let i = 0; i < checkboxToCheck.length; i++) checkboxToCheck[i].addEventListener("click", checkHowManyChecked)
 
     fetchUser()
-    
   },[])
-  
 
   if (!userData) {
     return <p>Loading</p>
@@ -120,7 +147,7 @@ export default function Settings() {
   return (
     <div className="w-full max-w-[1280px]">
       {/* <ChangePreferences user={userData}/> */}
-      <form>
+      <form onSubmit={handlePreferenceSubmit}>
         <h1 className="text-4xl font-bold mb-8">Account Settings</h1>
 
         <div className='flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl'>

@@ -39,10 +39,11 @@ export default function Dashboard(props: PageProps) {
       }
     });
     const data = await res.json()
-    const roleToPush:string[] = []
-    roleToPush.push(data.role)
+    // const roleToPush:string[] = []
+    // roleToPush.push(data.role)
     setUserId(data._id)
-    setUserRoles(roleToPush)
+    // setUserRoles(roleToPush)
+    setUserRoles(data.role)
     setUserData(data)
   }
 
