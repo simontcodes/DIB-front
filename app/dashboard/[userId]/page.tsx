@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+// TO GET THE SESSION AND USER FROM NEXT AUTH
 import { useSession } from "next-auth/react"
 import { useState, useEffect } from "react"
 import { User } from 'types/interfaces'
@@ -45,6 +46,7 @@ export default function Dashboard(props: PageProps) {
     setUserData(data)
   }
 
+  // FUNCTION TO CREATE THE ROLE TAGS DEPENDING ON USER ROLES
   const tokenSwitch = (roles: string | undefined, index: number) => {
     switch(roles) {
       case "Fullstack Developer":
