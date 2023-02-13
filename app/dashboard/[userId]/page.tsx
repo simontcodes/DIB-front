@@ -27,7 +27,7 @@ export default function Dashboard(props: PageProps) {
   const { data: session } = useSession()
   const [ userData, setUserData ] = useState<User>()
   const [ userId, setUserId ] = useState()
-  // const [ userRoles, setUserRoles ] = useState()
+  const [ userRoles, setUserRoles ] = useState<string[]>([])
 
   const fetchUser = async () => {
     const res = await fetch(`http://localhost:8080/dibs/${session?.user?.id}`, {
@@ -38,7 +38,10 @@ export default function Dashboard(props: PageProps) {
       }
     });
     const data = await res.json()
+    const roleToPush:string[] = []
+    roleToPush.push(data.role)
     setUserId(data._id)
+    setUserRoles(roleToPush)
     setUserData(data)
   }
 
@@ -107,12 +110,12 @@ export default function Dashboard(props: PageProps) {
   // }
   // const user = await fetchUser(props.params.userId)
   
-  const mockUser = {
-    name: "Schubert Kulminko",
-    roles: [true, true, true, true, true, true, true]
-  }
+  // const mockUser = {
+  //   name: "Schubert Kulminko",
+  //   roles: [true, true, true, true, true, true, true]
+  // }
 
-  const roles: string[] = ["Fullstack Developer", "Frontend Developer", "Project Manager"]
+  // const roles: string[] = ["Fullstack Developer", "Frontend Developer", "Project Manager"]
 
   if(!userData) {
     return <p>Loading</p>
@@ -149,7 +152,7 @@ export default function Dashboard(props: PageProps) {
 
       <div className='flex flex-col mt-4 bg-emerald-500 rounded-3xl p-4' id="roles-bar">
         <div className='flex gap-2'>
-          {roles.map((role, index) => (
+          {userRoles.map((role, index) => (
             tokenSwitch(role, index)
           ))}
           {/* {mockUser.roles[0] ? 
