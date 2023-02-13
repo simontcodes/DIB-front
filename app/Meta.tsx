@@ -1,5 +1,10 @@
 import Head from "next/head"
-import { MetaTypes } from "../types"
+
+interface MetaTypes {
+  title: string;
+  keywords: string;
+  description: string;
+}
 
 const Meta = ({title, keywords, description}: MetaTypes) => {
   return (
