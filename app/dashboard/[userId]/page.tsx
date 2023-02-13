@@ -30,11 +30,11 @@ export default function Dashboard(props: PageProps) {
   // const [ userRoles, setUserRoles ] = useState()
 
   const fetchUser = async () => {
-    const res = await fetch(`http://localhost:8080/dibs/${session?.user.id}`, {
+    const res = await fetch(`http://localhost:8080/dibs/${session?.user?.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${session?.user.token}`
+        Authorization: `bearer ${session?.user?.token}`
       }
     });
     const data = await res.json()
