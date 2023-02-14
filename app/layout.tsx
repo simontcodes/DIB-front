@@ -20,9 +20,9 @@ export default function RootLayout({children, session}: IProps) {
         {/* <Providers> */}
         <SessionProvider session={session}>
           <Navbar />
-          <div className="flex flex-col items-center pt-32 pb-16 px-4 md:px-8 lg:px-16">
+          <main className="flex flex-col items-center pt-16 pb-16">
             {children}
-          </div>
+          </main>
         </SessionProvider>
         {/* </Providers> */}
       </body>
