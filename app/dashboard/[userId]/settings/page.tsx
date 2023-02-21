@@ -145,7 +145,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="w-full max-w-[1280px]">
+    <div className="w-full max-w-[1280px] pt-16">
       {/* <ChangePreferences user={userData}/> */}
       <form onSubmit={handlePreferenceSubmit}>
         <h1 className="text-4xl font-bold mb-8">Account Settings</h1>

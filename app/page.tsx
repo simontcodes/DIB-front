@@ -80,8 +80,12 @@ export default function Home() {
         </svg>
       </div>
 
-      <section className='h-[40rem]'>
-        The WHY
+      <section className='h-[15rem] w-full'>
+        <div className='flex flex-col h-full w-full items-center justify-center'>
+          <h2 className='text-[2rem] mb-8'>Starting somewhere is not always the easiest!</h2>
+          <div className='text-xl'>We believe in giving everyone the basic tool and a platform to build the skills needed to get started</div>
+          <div className='text-xl'>Become a DIB and work with other collaborators, create real projects and gain work experience!</div>
+        </div>
       </section>
 
       {/* Top-Right background border */}
@@ -91,8 +95,12 @@ export default function Home() {
           <path className='-z-10 fill-[rgb(52,211,153)]' d="M 0 0 L 400 -30 L 400 0 H 0 Z"/>
         </svg>
       </div>
-      <section className='flex h-[40rem] w-full justify-center bg-emerald-400'>
-        The HOW
+      <section className='h-[15rem] w-full bg-emerald-400'>
+        <div className='flex flex-col h-full w-full items-center justify-center'>
+          <h2 className='text-[2rem] mb-8'>This is where start-ups meets talent!</h2>
+          <div className='text-xl'>Gain skills are you build along with other members.</div>
+          <div className='text-xl'>See your projects go live!</div>
+        </div>
       </section>
       {/* Bottom-Right background border */}
       <div className='w-full'>
@@ -102,8 +110,72 @@ export default function Home() {
         </svg>
       </div>
 
-      <section className='h-[20rem]'>
-        Socials if we have any
+      <section>
+        <div className='flex flex-col items-center py-16'>
+          <h2 className='text-[2rem] mb-8'>Find us on social media!</h2>
+          <div className='flex w-full justify-center gap-4'>
+            <a className='flex flex-col items-center' href={`https://github.com/`} target="_blank" rel="noopener noreferrer">
+              <div className='h-16 w-16'>
+                <Image 
+                  className='object-cover'
+                  src={`/icons/github.svg`}
+                  alt={`github logo`}
+                  width={200}
+                  height={200}
+                  />
+              </div>
+              <span>Github</span>
+            </a>
+            <a className='flex flex-col items-center' href={`https://linkedin.com/`} target="_blank" rel="noopener noreferrer">
+              <div className='h-16 w-16'>
+                <Image 
+                  className='object-cover'
+                  src={`/icons/linkedin.svg`}
+                  alt={`linkedin logo`}
+                  width={200}
+                  height={200}
+                  />
+              </div>
+              <span>LinkedIn</span>
+            </a>
+            <a className='flex flex-col items-center' href={`https://twitter.com/`} target="_blank" rel="noopener noreferrer">
+              <div className='h-16 w-16'>
+                <Image 
+                  className='object-cover'
+                  src={`/icons/twitter.svg`}
+                  alt={`twitter logo`}
+                  width={200}
+                  height={200}
+                  />
+              </div>
+              <span>Twitter</span>
+            </a>
+            <a className='flex flex-col items-center' href={`https://facebook.com/`} target="_blank" rel="noopener noreferrer">
+              <div className='h-16 w-16'>
+                <Image 
+                  className='object-cover'
+                  src={`/icons/facebook.svg`}
+                  alt={`facebook logo`}
+                  width={200}
+                  height={200}
+                  />
+              </div>
+              <span>Facebook</span>
+            </a>
+            <a className='flex flex-col items-center' href={`https://instagram.com/`} target="_blank" rel="noopener noreferrer">
+              <div className='h-16 w-16'>
+                <Image 
+                  className='object-cover'
+                  src={`/icons/instagram.svg`}
+                  alt={`instagram logo`}
+                  width={200}
+                  height={200}
+                  />
+              </div>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
       </section>
     </>
   )
