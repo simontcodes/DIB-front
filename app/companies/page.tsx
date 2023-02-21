@@ -1,6 +1,6 @@
 export default function CompaniesPage() {
 
   return (
-    <h1>Companies</h1>
+    <h1 className="pt-16">Companies</h1>
   )
 }
