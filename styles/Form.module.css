@@ -1,0 +1,12 @@
+.form_container {
+  @apply flex
+  h-full 
+  p-8 
+  z-[2] 
+  bg-white 
+  absolute
+  top-0
+  transition-all
+  ease-in-out
+  duration-[600ms]
+}
