@@ -1,6 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials"
 import NextAuth, { NextAuthOptions } from "next-auth"
-import { userAgent } from "next/server"
+// import { userAgent } from "next/server"
 
 export const authOptions:NextAuthOptions = {
   // Configure one or more authentication providers
@@ -20,7 +20,7 @@ export const authOptions:NextAuthOptions = {
       async authorize(credentials, req) {
 
         const { email, password } = credentials as any
-        console.log("Called")
+        console.log("Login attempted")
 
         const res = await fetch('http://localhost:8080/login/dibs/', {
           method: "POST",
