@@ -35,14 +35,14 @@ const Navbar = () => {
             <Link href='/developers'>Developers</Link>
           </li>
         </ul>
-        <ul className='flex gap-4 text-white'>
-          {/* <Link href={`/dashboard/`}>UserDashboard (Temp)</Link> */}
-          {session?.user && 
+        {session?.user && 
+          <ul className='flex gap-4 text-white'>
+            {/* <Link href={`/dashboard/`}>UserDashboard (Temp)</Link> */}
             <li className='text-green'>
               <Link href={`/dashboard/${session.user.id}`}>UserDashboard (Temp)</Link>
             </li>
-          }
-        </ul>
+          </ul>
+        }
         {/* <div className='flex items-center gap-2'> */}
         <div>
           {/* <button className='px-2 py-1 rounded bg-emerald-600 text-white'>Apply</button> */}

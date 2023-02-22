@@ -58,13 +58,12 @@ export default function Home() {
           <span className='text-2xl'>Build REAL PROJECTS, Gain REAL SKILLS</span>
           <div className='flex -space-x-5 overflow-hidden mt-4'>
             {avatarPlaceholder.map((user, index) => (
-              <div className={`flex shrink-0 items-center justify-center border-2 border-slate-700 rounded-full h-16 w-16 overflow-hidden z-[1]`} >
+              <div className={`flex shrink-0 items-center justify-center border-2 border-slate-700 rounded-full h-16 w-16 overflow-hidden z-[1]`} key={index}>
                 <img 
                   // className='scale-[1.05] bg-white'
                   className={`scale-[1.15] bg-white z-[2] inline-flex object-cover`}
                   src={`/images/placeholders/placeholder-avatar-${user}.svg`} 
                   alt='avatar' 
-                  key={index} 
                 />
               </div>
             ))}
