@@ -6,7 +6,7 @@ export default function ShowcasePage() {
   // https://source.unsplash.com/960x540/?landscape
 
   return (
-    <div className="w-full max-w-[1280px]">
+    <div className="w-full max-w-[1280px] pt-16">
       <h1 className="text-4xl font-bold mb-8">Projects</h1>
 
       <section className="w-full mb-8">

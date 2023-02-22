@@ -125,7 +125,7 @@ export default function Dashboard(props: PageProps) {
   }
 
   return (
-    <div className="w-full max-w-[1280px]">
+    <div className="w-full max-w-[1280px] pt-16">
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
 
       <div className='flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl'>

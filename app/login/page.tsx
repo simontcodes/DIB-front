@@ -11,8 +11,8 @@ export default function Login() {
   const [ password, setPassword ] = useState('')
   const [ rememberMe, setRememberMe ] = useState(false)
 
-  const handleSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    const result = await signIn("credentials", {
+  const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    signIn("credentials", {
       email,
       password,
       redirect: true,

@@ -9,6 +9,13 @@ export default withAuth(
         new URL("/login?message=You are not authorized!!", req.url)
       )
     }
+
+    // Insert roles for he users
+    // if(req.nextUrl.pathname.startsWith("/dashboard") && req.nextauth.token?.role !== "admin") {
+    //   return NextResponse.rewrite(
+    //     new URL("/login?message=You are not authorized!!", req.url)
+    //   )
+    // }
     
   },
   {
