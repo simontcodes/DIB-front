@@ -24,28 +24,22 @@ export default function Login() {
     <div className="w-full max-w-[1280px] ">
       <div className="flex justify-center">
         <div className={`container h-[500px] w-[800px] max-w-full shadow-xl rounded-2xl relative overflow-hidden`}>
-
           <SignUpForm />
-
           <SignInForm />
-
           <div className='overlay-container absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform ease-in-out duration-[600ms] z-[100]'>
             <div className={`overlay bg-emerald-600 text-white relative left-[-100%] h-full w-[200%] transition-transform ease-in-out duration-[600ms] ${styles.overlay}`}>
-
               {/* <div className="overlay-panel flex flex-col gap-3 justify-center items-center w-[400px] h-[500px] bg-emerald-600"> */}
               <div className={`overlay-panel overlay-left absolute bg-emerald-600 top-0 flex flex-col justify-center items-center gap-3 h-full w-1/2 text-center translate-x-0 transition-transform ease-in-out duration-[600ms]`}>
                 <span className="text-3xl font-bold ">Welcome Back</span>
                 <span>Login to continue your journey</span>
                 <button className="py-1 px-2 border border-white rounded bg-emerald-900 hover:bg-emerald-800 active:scale-[.98] transition-transform" id='signIn'>Sign In</button>
               </div>
-
               {/* <div className="overlay-panel flex flex-col gap-3 justify-center items-center w-[400px] h-[500px] bg-emerald-600"> */}
               <div className={`overlay-panel overlay-right absolute bg-emerald-600 top-0 flex flex-col justify-center items-center gap-3 h-full w-1/2 text-center translate-x-0 transition-transform ease-in-out duration-[600ms]`}>
                 <span className="text-3xl font-bold ">Hello, Friend!</span>
                 <span>Enter your info and start your journey with us</span>
                 <button className="py-1 px-2 border border-white rounded bg-emerald-900 hover:bg-emerald-800 active:scale-[.98] transition-transform" id='signUp'>Sign Up</button>
               </div>
-
             </div>
           </div>
         </div>
@@ -159,8 +153,7 @@ const SignUpForm = () => {
   // const router = useRouter()
 
   const handleSubmitRegister = async (values: SignUpForm) => {
-
-    console.log(values)
+    // console.log(values)
     // setRegisterError(false)
     // const status = await signIn("credentials", {
     //   email: values.email,
@@ -194,7 +187,6 @@ const SignUpForm = () => {
       </div>
       {registerError ? <span className='self-center text-rose-400'>All fields must be filled in</span> : <></>}
       <form className='flex flex-col gap-2' onSubmit={formik.handleSubmit} key="signIn">
-
         <div className='flex flex-col'>
           <label className='text-xs font-bold uppercase mb-1'>Full name</label>
           <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.name && formik.touched.name || registerError ? 'border border-rose-600' : ''}`}>
@@ -217,7 +209,6 @@ const SignUpForm = () => {
               />
           </div>
         </div>
-
         <div className='flex flex-col'>
           <label className='text-xs font-bold uppercase mb-1'>password</label>
           <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.password && formik.touched.password || registerError ? 'border border-rose-600' : ''}`}>
@@ -237,7 +228,6 @@ const SignUpForm = () => {
             </svg>
           </div>
         </div>
-
         <div className='flex flex-col'>
           <label className='text-xs font-bold uppercase mb-1'>confirm password</label>
           <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.cPassword && formik.touched.cPassword || registerError ? 'border border-rose-600' : ''}`}>
@@ -257,9 +247,7 @@ const SignUpForm = () => {
             </svg>
           </div>
         </div>
-
         <button className='w-full p-3 mt-2 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-95 transition-transform'>Sign Up</button>
-
       </form>
     </div>
   )
