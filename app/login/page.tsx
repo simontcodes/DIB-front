@@ -28,10 +28,9 @@ export default function Login() {
       {isNewUser ? 
       <div className='flex flex-col items-center absolute -top-[7rem]'>
         <span className='text-2xl mb-1'>You are now a DIB!</span> 
-        <span className='text-2xl mb-4'> Please login to set your roles</span> 
+        <span className='text-2xl mb-4'> Please login to set your roles on your dashboard</span> 
       </div>
       : <></>}
-
       <div className="flex justify-center">
         <div className={`container h-[500px] w-[800px] max-w-full shadow-xl rounded-2xl relative overflow-hidden`}>
           <SignUpForm setIsNewUser={setIsNewUser}/>

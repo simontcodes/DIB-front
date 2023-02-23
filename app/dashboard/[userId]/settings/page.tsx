@@ -53,7 +53,6 @@ export default function Settings() {
     const data = await res.json()
     setUserData(data)
     setName(data.name)
-    console.log(data.role)
     setRoles(data.role)
   }
 
