@@ -12,6 +12,8 @@ import axios from 'axios'
 
 export default function Login() {
 
+  const [isNewUser, setIsNewUser] = useState(false)
+
   useEffect(() => {
     const signUpButton = document.querySelector('#signUp')
     const signInButton = document.querySelector('#signIn')
@@ -22,11 +24,18 @@ export default function Login() {
   }, [])
 
   return (
-    <div className="w-full max-w-[1280px] ">
+    <div className="flex flex-col w-full max-w-[1280px] items-center relative">
+      {isNewUser ? 
+      <div className='flex flex-col items-center absolute -top-[7rem]'>
+        <span className='text-2xl mb-1'>You are now a DIB!</span> 
+        <span className='text-2xl mb-4'> Please login to set your roles</span> 
+      </div>
+      : <></>}
+
       <div className="flex justify-center">
         <div className={`container h-[500px] w-[800px] max-w-full shadow-xl rounded-2xl relative overflow-hidden`}>
-          <SignUpForm />
-          <SignInForm />
+          <SignUpForm setIsNewUser={setIsNewUser}/>
+          <SignInForm isNewUser={isNewUser}/>
           <div className='overlay-container absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform ease-in-out duration-[600ms] z-[100]'>
             <div className={`overlay bg-emerald-600 text-white relative left-[-100%] h-full w-[200%] transition-transform ease-in-out duration-[600ms] ${styles.overlay}`}>
               {/* <div className="overlay-panel flex flex-col gap-3 justify-center items-center w-[400px] h-[500px] bg-emerald-600"> */}
@@ -49,7 +58,7 @@ export default function Login() {
   )
 }
 
-const SignInForm = () => {
+const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
 
   type LoginForm = {
     email: string,
@@ -140,7 +149,7 @@ const SignInForm = () => {
   )
 }
 
-const SignUpForm = () => {
+const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
 
   type SignUpForm = {
     name: string,
@@ -157,11 +166,10 @@ const SignUpForm = () => {
 
   const [show, setShow] = useState(false)
   const [registerError, setRegisterError] = useState(false)
-  const [formError,setFormError] = useState('')
   const [nameError,setNameError] = useState('')
   const [emailError,setEmailError] = useState('')
   const [passwordError,setPasswordError] = useState('')
-  // const router = useRouter()
+  const router = useRouter()
 
   const handleSubmitRegister = async (values: SignUpForm) => {
     console.log(values)
@@ -190,8 +198,16 @@ const SignUpForm = () => {
     try {
       const res = await axios.post('http://localhost:8080/dibs/', registerFormBody)
       const data = res.data
-      console.log(res)
+      console.log(data)
+      if (res.status === 201) {
+        console.log("User has been created")
+        // router.push(`/dashboard/${data._id}`)
+        // router.push(`/login`)
+        document.querySelector('.container')?.classList.remove('right-panel-active')
+        setIsNewUser(true)
+      }
     } catch (e: any) {
+      // console.log(e.response)
       const stringName = 'name: '
       const stringEmail = 'email: '
       const stringPassword = 'password: '
@@ -250,7 +266,11 @@ const SignUpForm = () => {
       cPassword: '',
     },
     validate: register_validate,
-    onSubmit: handleSubmitRegister
+    // onSubmit: handleSubmitRegister
+    onSubmit: (values, action) => {
+      handleSubmitRegister(values)
+      action.resetForm()
+    }
   })
 
   return (
@@ -261,7 +281,7 @@ const SignUpForm = () => {
       {/* {formError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{formError}</span> : <></>} */}
       <form className='flex flex-col gap-2' onSubmit={formik.handleSubmit} key="signIn">
         <div className='flex flex-col'>
-          <div className='flex justify-between mb-1 text-xs font-bold uppercase'>
+          <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
             <label>Full name</label>
             {formik.errors.name && formik.touched.name ? <span className='text-rose-400 '>{formik.errors.name}</span> : <></>}
             {nameError ? <span className='text-rose-400 '>{nameError}</span> : <></>}
@@ -276,7 +296,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className='flex flex-col'>
-          <div className='flex justify-between mb-1 text-xs font-bold uppercase'>
+          <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
             <label className='text-xs font-bold uppercase mb-1'>email</label>
             {formik.errors.email && formik.touched.email ? <span className='text-rose-400'>{formik.errors.email}</span> : <></>}
             {emailError ? <span className='text-rose-400'>{emailError}</span> : <></>}
@@ -291,7 +311,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className='flex flex-col'>
-          <div className='flex justify-between mb-1 text-xs font-bold uppercase'>
+          <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
             <label className='text-xs font-bold uppercase mb-1'>password</label>
             {formik.errors.password && formik.touched.password ? <span className='text-rose-400'>{formik.errors.password}</span> : <></>}
             {passwordError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{passwordError}</span> : <></>}
@@ -314,7 +334,7 @@ const SignUpForm = () => {
           </div>
         </div>
         <div className='flex flex-col'>
-          <div className='flex justify-between mb-1 text-xs font-bold uppercase'>
+          <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
             <label className='text-xs font-bold uppercase mb-1'>confirm password</label>
             {formik.errors.cPassword && formik.touched.cPassword ? <span className='text-rose-400'>{formik.errors.cPassword}</span> : <></>}
           </div>
@@ -335,7 +355,9 @@ const SignUpForm = () => {
             </svg>
           </div>
         </div>
-        <button className='w-full p-3 mt-2 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-95 transition-transform'>Sign Up</button>
+        <button 
+          className='w-full p-3 mt-2 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-95 transition-transform'
+        >Sign Up</button>
       </form>
     </div>
   )

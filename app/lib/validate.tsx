@@ -53,6 +53,8 @@ export function register_validate(values: SignUpForm) {
     errors.password = "Required"
   } else if (values.password.length < 8) {
     errors.password = "Must be greater than 8 characters"
+  } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
+    errors.password = "Must contain at least one capital letter and one number"
   } else if (values.password.includes(" ")) {
     errors.password = "Invalid password"
   }
