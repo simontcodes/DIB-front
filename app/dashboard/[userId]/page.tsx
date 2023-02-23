@@ -155,9 +155,7 @@ export default function Dashboard(props: PageProps) {
 
       <div className='flex flex-col mt-4 bg-emerald-500 rounded-3xl p-4' id="roles-bar">
         <div className='flex gap-2'>
-          {userRoles.map((role, index) => (
-            tokenSwitch(role, index)
-          ))}
+          {userRoles.length == 0 ? <span className="bg-emerald-900 w-fit py-1 px-3 rounded-md text-white font-medium mx-auto">Please set your roles in settings</span> : userRoles.map((role, index) => tokenSwitch(role, index))}
           {/* {mockUser.roles[0] ? 
           <div className='flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md '>
             <div className='h-4 w-4 bg-purple-500 rounded-full'></div>

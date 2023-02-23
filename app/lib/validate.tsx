@@ -37,7 +37,7 @@ export function register_validate(values: SignUpForm) {
   // validation for name
   if(!values.name) {
     errors.name = 'Required'
-  } else if (!values.name.includes(" ")) {
+  } else if (!/[A-Za-z]+\s[A-Za-z]+/i.test(values.name)) {
     errors.name = 'Please entre both First and Last name'
   }
 
@@ -53,6 +53,8 @@ export function register_validate(values: SignUpForm) {
     errors.password = "Required"
   } else if (values.password.length < 8) {
     errors.password = "Must be greater than 8 characters"
+  } else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(values.password)) {
+    errors.password = "Must contain at least one capital letter and one number"
   } else if (values.password.includes(" ")) {
     errors.password = "Invalid password"
   }
