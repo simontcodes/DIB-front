@@ -1,7 +1,7 @@
 .form_container {
   @apply flex
   h-full 
-  p-8 
+  p-[1.5rem] 
   z-[2] 
   bg-white 
   absolute

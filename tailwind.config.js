@@ -37,7 +37,9 @@ module.exports = {
     },
   },
   variants:{
-    entend: {},
+    entend: {
+      transform: ['hover', 'focus'],
+    },
   },
   plugins: [],
 };

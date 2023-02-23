@@ -37,7 +37,7 @@ export function register_validate(values: SignUpForm) {
   // validation for name
   if(!values.name) {
     errors.name = 'Required'
-  } else if (!values.name.includes(" ")) {
+  } else if (!/[A-Za-z]+\s[A-Za-z]+/i.test(values.name)) {
     errors.name = 'Please entre both First and Last name'
   }
 
