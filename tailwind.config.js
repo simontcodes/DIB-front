@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      hide: {
+        numberScroll: "::-webkit-outer-spin-button {-webkit-appreance: none}"
+      },
       colors: {
         'seashell': {
           200: '#F7D6D0',
