@@ -65,6 +65,7 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
   }
 
   const [rememberMe, setRememberMe] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [show, setShow] = useState(false)
   const [loginError, setLoginError] = useState(false)
   const router = useRouter()
@@ -74,6 +75,7 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
     const status = await signIn("credentials", {
       email: values.email,
       password: values.password,
+      admin: isAdmin,
       redirect: false,
       callbackUrl: "/"
     })
@@ -81,6 +83,7 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
       setLoginError(true)
     }
     if (status?.ok) {
+      console.log("logged in")
       router.push(status.url || "/")
     }
   }
@@ -134,9 +137,15 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
           </div>
           <button className='w-full p-3 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-[.98] transition-transform'>Sign In</button>
           <div className='flex justify-between'>
-            <div>
-              <input id="uploaded" type="checkbox" value="uploaded" name="avatar-type" checked={rememberMe} onChange={(e) => setRememberMe(!rememberMe)} />
-              <label className="ml-2" htmlFor="uploaded">Remember me?</label>
+            <div className='flex flex-col'>
+              <label className="ml-2">
+                <input className='mr-2' id="remember" type="checkbox" value="remember" name="avatar-type" checked={rememberMe} onChange={(e) => setRememberMe(!rememberMe)} />
+                Remember me?
+              </label>
+              <label className="ml-2">
+                <input className='mr-2' id="admin" type="checkbox" value="admin" name="avatar-type" checked={isAdmin} onChange={(e) => setIsAdmin(!isAdmin)} />
+                Are you an Admin?
+              </label>
             </div>
             <div>
               <Link href="/forgot-password">Forgot Password</Link>
@@ -177,8 +186,6 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
     setPasswordError('')
     setRegisterError(false)
 
-    console.log('line 173: ', formik.errors)
-
     if (
       formik.errors.name !== undefined ||
       formik.errors.email !== undefined ||
@@ -196,17 +203,12 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
 
     try {
       const res = await axios.post('http://localhost:8080/dibs/', registerFormBody)
-      const data = res.data
-      console.log(data)
       if (res.status === 201) {
         console.log("User has been created")
-        // router.push(`/dashboard/${data._id}`)
-        // router.push(`/login`)
         document.querySelector('.container')?.classList.remove('right-panel-active')
         setIsNewUser(true)
       }
     } catch (e: any) {
-      // console.log(e.response)
       const stringName = 'name: '
       const stringEmail = 'email: '
       const stringPassword = 'password: '
@@ -214,47 +216,26 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
         setEmailError("Email already in use")
       }
       if (e.response.data.message.includes('name')) {
-        console.log("name error")
         if (e.response.data.message.includes('email')) {
           console.log("name and email missing")
-          // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringName) + stringName.length, e.response.data.message.indexOf(stringPassword) - 2))
           setNameError(e.response.data.message.slice(e.response.data.message.indexOf(stringName) + stringName.length, e.response.data.message.indexOf(stringEmail) - 2))
         } else if (e.response.data.message.includes('password')) {
-          // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringPassword) + stringPassword.length, e.response.data.message.indexOf(stringPassword) - 2))
           setNameError(e.response.data.message.slice(e.response.data.message.indexOf(stringName) + stringName.length, e.response.data.message.indexOf(stringPassword) - 2))
         } else {
-          // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringName) + stringName.length))
           setNameError(e.response.data.message.slice(e.response.data.message.indexOf(stringName) + stringName.length))
         }
       }
       if (e.response.data.message.includes('email')) {
-        console.log("email error")
         if (e.response.data.message.includes('password')) {
-          // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringEmail) + stringEmail.length, e.response.data.message.indexOf(stringPassword) - 2))
           setEmailError(e.response.data.message.slice(e.response.data.message.indexOf(stringEmail) + stringEmail.length, e.response.data.message.indexOf(stringPassword) - 2))
         } else {
-          // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringEmail) + stringEmail.length))
           setEmailError(e.response.data.message.slice(e.response.data.message.indexOf(stringEmail) + stringEmail.length))
         }
       }
       if (e.response.data.message.includes('password')) {
-        console.log("password error") 
-        // console.log(e.response.data.message.slice(e.response.data.message.indexOf(stringPassword) + stringPassword.length))
         setPasswordError(e.response.data.message.slice(e.response.data.message.indexOf(stringPassword) + stringPassword.length))
       }
     }
-    // const status = await signIn("credentials", {
-    //   email: values.email,
-    //   password: values.password,
-    //   redirect: false,
-    //   callbackUrl: "/"
-    // })
-    // if(!status?.ok) {
-    //   setRegisterError(true)
-    // }
-    // if(status?.ok) {
-    //   router.push(status.url || "/")
-    // }
   }
 
   const formik = useFormik({
@@ -277,7 +258,6 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
       <div className='h-[3rem] flex items-center'>
         <span className='text-3xl'>Create Account</span>
       </div>
-      {/* {formError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{formError}</span> : <></>} */}
       <form className='flex flex-col gap-2' onSubmit={formik.handleSubmit} key="signIn">
         <div className='flex flex-col'>
           <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>

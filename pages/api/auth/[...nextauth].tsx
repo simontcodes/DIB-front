@@ -19,10 +19,12 @@ export const authOptions:NextAuthOptions = {
       },
       async authorize(credentials, req) {
 
-        const { email, password } = credentials as any
-        console.log("Login attempted")
+        const isAdmin = JSON.parse(req?.body?.admin)
+        const url = `http://localhost:8080/login/${isAdmin ? 'admins' : 'dibs'}/`
 
-        const res = await fetch('http://localhost:8080/login/dibs/', {
+        const { email, password } = credentials as any
+
+        const res = await fetch(url, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
