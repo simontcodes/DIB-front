@@ -21,6 +21,8 @@ export default function Dashboard(props: PageProps) {
   const [userId, setUserId] = useState();
   const [userRoles, setUserRoles] = useState<string[]>([]);
 
+  const [sideBarData, setSideBarData] = useState({});
+
   // FUNCTION TO FETCH USER
   const fetchUser = async () => {
     const isAdmin = session?.user?.role?.includes("Admin");
@@ -43,6 +45,8 @@ export default function Dashboard(props: PageProps) {
       }
     );
     const data = await res.json();
+    setSideBarData(data);
+    console.log(data);
     setUserId(data._id);
     console.log(typeof data.role === "string");
     if (typeof data.role === "string") {
@@ -203,7 +207,7 @@ export default function Dashboard(props: PageProps) {
           )}
         </div>
       </div>
-      <SideBar userId={userId} />
+      <SideBar data={sideBarData} />
     </div>
   );
 }

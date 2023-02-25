@@ -1,5 +1,5 @@
-export default function SideBar({ userId }) {
-  console.log(userId);
+export default function SideBar({ data }) {
+  console.log(data);
   return (
     <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col">
       <div className="w-64  bg-gray-900 rounded-md">
@@ -249,7 +249,7 @@ export default function SideBar({ userId }) {
                 href="#"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
               >
-                Design
+                Team
               </a>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -273,7 +273,7 @@ export default function SideBar({ userId }) {
                 href="#"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
               >
-                Market & sell
+                Project Board
               </a>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -372,7 +372,7 @@ export default function SideBar({ userId }) {
                 href="#"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
               >
-                Support
+                Discord
               </a>
             </li>
           </ul>
@@ -498,9 +498,9 @@ export default function SideBar({ userId }) {
               />
             </div>
             <div className="flex flex-col pl-3">
-              <div className="text-sm text-gray-50">Simon Tang</div>
+              <div className="text-sm text-gray-50">{data.name}</div>
               <span className="text-xs text-[#acacb0] font-light tracking-tight">
-                simont.codes@gmail.com
+                {data.email}
               </span>
             </div>
           </div>
