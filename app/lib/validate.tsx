@@ -8,6 +8,20 @@ type SignUpForm = {
   password: string,
   cPassword: string,
 }
+type CreateProjectForm = {
+  companyName: string,
+  logo: string,
+  contactInfo: string,
+  teamName: string,
+  rolesNeeded: [string],
+  fullstackDeveloper: number,
+  frontendDeveloper: number,
+  backendDeveloper: number,
+  pm: number,
+  qaTester: number,
+  uxui: number,
+  devOps: number,
+}
 
 export function login_validate(values: SignInForm) {
   const errors = {}
@@ -67,4 +81,55 @@ export function register_validate(values: SignUpForm) {
   }
 
   return errors
+}
+
+export function createProjectForm_validate(values: CreateProjectForm) {
+  
+  const errors = {}
+
+  // validation for company name
+  if(!values.companyName) {
+    errors.companyName = 'Required'
+  }
+
+  // validation for logo
+  if(!values.logo) {
+    errors.logo = 'Required'
+  }
+
+  // validation for contact info
+  if(!values.contactInfo) {
+    errors.contactInfo = 'Required'
+  }
+
+  // validation for team name
+  if(!values.teamName) {
+    errors.teamName = 'Required'
+  }
+
+  // validation for needed roles
+  if(!values.rolesNeeded) {
+    errors.rolesNeeded = 'Required'
+  }
+  if(!values.fullstackDeveloper) {
+    errors.fullstackDeveloper = 'Required'
+  }
+  if(!values.frontendDeveloper) {
+    errors.frontendDeveloper = 'Required'
+  }
+  if(!values.backendDeveloper) {
+    errors.backendDeveloper = 'Required'
+  }
+  if(!values.pm) {
+    errors.pm = 'Required'
+  }
+  if(!values.qaTester) {
+    errors.qaTester = 'Required'
+  }
+  if(!values.uxui) {
+    errors.uxui = 'Required'
+  }
+  if(!values.devOps) {
+    errors.devOps = 'Required'
+  }
 }
