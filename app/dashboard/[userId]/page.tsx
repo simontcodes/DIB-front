@@ -24,8 +24,7 @@ export default function Dashboard(props: PageProps) {
   // FUNCTION TO FETCH USER
   const fetchUser = async () => {
     const isAdmin = session?.user?.role?.includes('Admin')
-    console.log(session)
-    console.log(`http://localhost:8080/${isAdmin?"admins":"dibs"}/${session?.user?.id}`)
+    // console.log(`http://localhost:8080/${isAdmin?"admins":"dibs"}/${session?.user?.id}`)
     const res = await fetch(`http://localhost:8080/${isAdmin?"admins":"dibs"}/${session?.user?.id}`, {
       method: "GET",
       headers: {
@@ -35,7 +34,6 @@ export default function Dashboard(props: PageProps) {
     });
     const data = await res.json()
     setUserId(data._id)
-    console.log(typeof data.role === "string")
     if(typeof data.role === "string") {
       const roleToPush:string[] = []
       roleToPush.push(data.role)

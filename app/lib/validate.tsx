@@ -13,7 +13,6 @@ type CreateProjectForm = {
   logo: string,
   contactInfo: string,
   teamName: string,
-  rolesNeeded: [string],
   fullstackDeveloper: number,
   frontendDeveloper: number,
   backendDeveloper: number,
@@ -22,6 +21,21 @@ type CreateProjectForm = {
   uxui: number,
   devOps: number,
 }
+// type CreateProjectForm = {
+//   companyName: string,
+//   logo: string,
+//   contactInfo: string,
+//   teamName: string,
+//   rolesNeeded: {
+//     fullstackDeveloper: number,
+//     frontendDeveloper: number,
+//     backendDeveloper: number,
+//     pm: number,
+//     qaTester: number,
+//     uxui: number,
+//     devOps: number,
+//   }
+// }
 
 export function login_validate(values: SignInForm) {
   const errors = {}
@@ -86,50 +100,64 @@ export function register_validate(values: SignUpForm) {
 export function createProjectForm_validate(values: CreateProjectForm) {
   
   const errors = {}
-
+  
   // validation for company name
   if(!values.companyName) {
+    console.log('company error')
     errors.companyName = 'Required'
   }
 
   // validation for logo
   if(!values.logo) {
+    console.log('logo error')
     errors.logo = 'Required'
   }
 
   // validation for contact info
   if(!values.contactInfo) {
+    console.log('contact error')
     errors.contactInfo = 'Required'
   }
 
   // validation for team name
   if(!values.teamName) {
+    console.log('team name error')
     errors.teamName = 'Required'
   }
 
   // validation for needed roles
-  if(!values.rolesNeeded) {
-    errors.rolesNeeded = 'Required'
-  }
+  // if(!values.rolesNeeded) {
+  //   console.log('')
+  //   errors.rolesNeeded = 'Needs at least one'
+  // }
   if(!values.fullstackDeveloper) {
-    errors.fullstackDeveloper = 'Required'
+    console.log('')
+    errors.fullstackDeveloper = 'Needs at least one'
   }
   if(!values.frontendDeveloper) {
-    errors.frontendDeveloper = 'Required'
+    console.log('')
+    errors.frontendDeveloper = 'Needs at least one'
   }
   if(!values.backendDeveloper) {
-    errors.backendDeveloper = 'Required'
+    console.log('')
+    errors.backendDeveloper = 'Needs at least one'
   }
   if(!values.pm) {
-    errors.pm = 'Required'
+    console.log('')
+    errors.pm = 'Needs at least one'
   }
   if(!values.qaTester) {
-    errors.qaTester = 'Required'
+    console.log('')
+    errors.qaTester = 'Needs at least one'
   }
   if(!values.uxui) {
-    errors.uxui = 'Required'
+    console.log('')
+    errors.uxui = 'Needs at least one'
   }
   if(!values.devOps) {
-    errors.devOps = 'Required'
+    console.log('')
+    errors.devOps = 'Needs at least one'
   }
+
+  return errors
 }

@@ -205,7 +205,6 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
   const router = useRouter()
 
   const handleSubmitRegister = async (values: SignUpForm) => {
-    console.log(values)
     setNameError('')
     setEmailError('')
     setPasswordError('')
