@@ -251,7 +251,7 @@ export default function CreateProjectForm() {
         </div>
         <button 
           className='w-full p-3 mt-2 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-95 transition-transform'
-        >Sign Up</button>
+        >Create Project</button>
       </form>
 
 

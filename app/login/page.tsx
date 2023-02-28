@@ -104,9 +104,12 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
         {loginError ? <span className='self-center text-rose-400'>Email or Password is incorrect</span> : <></>}
         <form className='flex flex-col gap-4' onSubmit={formik.handleSubmit} key="signIn">
           <div className='flex flex-col'>
-            <label className='text-xs font-bold uppercase mb-1'>email</label>
+            <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
+              <label htmlFor='emailSignIn'>email</label>
+            </div>
             <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.email && formik.touched.email || loginError ? 'border border-rose-600' : ''}`}>
               <input
+                id='emailSignIn'
                 className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
                 type="text"
                 placeholder="Email"
@@ -114,10 +117,14 @@ const SignInForm = ({isNewUser}:{isNewUser:Boolean}) => {
               />
             </div>
           </div>
+
           <div className='flex flex-col'>
-            <label className='text-xs font-bold uppercase mb-1'>password</label>
+            <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
+              <label htmlFor='passwordSignIn'>password</label>
+            </div>
             <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.password && formik.touched.password || loginError ? 'border border-rose-600' : ''}`}>
               <input
+                id='passwordSignIn'
                 className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
                 type={`${show ? 'text' : 'password'}`}
                 placeholder="Password"
@@ -279,12 +286,13 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
       <form className='flex flex-col gap-2' onSubmit={formik.handleSubmit} key="signIn">
         <div className='flex flex-col'>
           <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-            <label>Full name</label>
+            <label htmlFor='nameSignUp'>Full name</label>
             {formik.errors.name && formik.touched.name ? <span className='text-rose-400 '>{formik.errors.name}</span> : <></>}
             {nameError ? <span className='text-rose-400 '>{nameError}</span> : <></>}
           </div>
           <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.name && formik.touched.name || registerError ? 'border border-rose-600' : ''}`}>
             <input
+              id='nameSignUp'
               className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
               type="text"
               placeholder="First Name & Last Name"
@@ -294,12 +302,13 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
         </div>
         <div className='flex flex-col'>
           <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-            <label className='text-xs font-bold uppercase mb-1'>email</label>
+            <label htmlFor='emailSignUp'>email</label>
             {formik.errors.email && formik.touched.email ? <span className='text-rose-400'>{formik.errors.email}</span> : <></>}
             {emailError ? <span className='text-rose-400'>{emailError}</span> : <></>}
           </div>
           <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.email && formik.touched.email || registerError ? 'border border-rose-600' : ''}`}>
             <input
+              id='emailSignUp'
               className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
               type="text"
               placeholder="Email"
@@ -309,12 +318,13 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
         </div>
         <div className='flex flex-col'>
           <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-            <label className='text-xs font-bold uppercase mb-1'>password</label>
+            <label htmlFor='passwordSignUp'>password</label>
             {formik.errors.password && formik.touched.password ? <span className='text-rose-400'>{formik.errors.password}</span> : <></>}
             {passwordError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{passwordError}</span> : <></>}
           </div>
           <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.password && formik.touched.password || registerError ? 'border border-rose-600' : ''}`}>
             <input
+              id='passwordSignUp'
               className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
               type={`${show ? 'text' : 'password'}`}
               placeholder="Password"
@@ -344,11 +354,12 @@ const SignUpForm = ({setIsNewUser}:{setIsNewUser:Function}) => {
         </div>
         <div className='flex flex-col'>
           <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-            <label className='text-xs font-bold uppercase mb-1'>confirm password</label>
+            <label htmlFor='cPasswordSignUp'>confirm password</label>
             {formik.errors.cPassword && formik.touched.cPassword ? <span className='text-rose-400'>{formik.errors.cPassword}</span> : <></>}
           </div>
           <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.cPassword && formik.touched.cPassword || registerError ? 'border border-rose-600' : ''}`}>
             <input
+              id='cPasswordSignUp'
               className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
               type={`${show ? 'text' : 'password'}`}
               placeholder="Confirm Password"
