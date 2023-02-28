@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function ShowcasePage() {
 
   const completedProjects = [1, 2, 3, 4, 5, 6]
@@ -7,7 +9,10 @@ export default function ShowcasePage() {
 
   return (
     <div className="w-full max-w-[1280px] pt-16">
-      <h1 className="text-4xl font-bold mb-8">Projects</h1>
+      <div className='flex justify-between items-center'>
+        <h1 className="text-4xl font-bold mb-8">Projects</h1>
+        <Link className='text-xl text-white font-bold border border-emerald-800 rounded-md px-2 py-1 bg-emerald-600' href='/projects/create'>Create new Project</Link>
+      </div>
 
       <section className="w-full mb-8">
         <h2 className="text-3xl">Completed</h2>
