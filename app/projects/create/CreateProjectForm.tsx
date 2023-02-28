@@ -106,7 +106,6 @@ export default function CreateProjectForm() {
             <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
               <label>Company Name</label>
               {formik.errors.companyName && formik.touched.companyName ? <span className='text-rose-400 '>{formik.errors.companyName}</span> : <></>}
-              {/* {nameError ? <span className='text-rose-400 '>{nameError}</span> : <></>} */}
             </div>
             <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.companyName && formik.touched.companyName ? 'border border-rose-600' : ''}`}>
               <input
@@ -332,8 +331,6 @@ export default function CreateProjectForm() {
           className='w-full p-3 mt-2 bg-emerald-600 rounded-md text-white hover:bg-emerald-800 active:scale-95 transition-transform'
         >Create Project</button>
       </form>
-
-
     </div>
   )
 }
