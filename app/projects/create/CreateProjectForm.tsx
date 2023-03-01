@@ -20,21 +20,6 @@ type CreateProjectForm = {
   uxui: number,
   devOps: number,
 }
-type CreateProjectFormBody = {
-  companyName: string,
-  logo: string,
-  contactInfo: string,
-  teamName: string,
-  rolesNeeded: {
-    fullstackDeveloper: number,
-    frontendDeveloper: number,
-    backendDeveloper: number,
-    pm: number,
-    qaTester: number,
-    uxui: number,
-    devOps: number,
-  }
-}
 
 export default function CreateProjectForm() {
 
@@ -67,7 +52,6 @@ export default function CreateProjectForm() {
       {role: 'uxui', quantity: values.uxui},
       {role: 'devOps', quantity: values.devOps}
     ]
-
     const createProjectFormData = new FormData()
     createProjectFormData.append('company', values.companyName);
     createProjectFormData.append('teamName', values.teamName);
@@ -132,20 +116,6 @@ export default function CreateProjectForm() {
             </div>
           </div>
 
-          {/* <div className='flex flex-col'>
-            <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-              <label className='text-xs font-bold uppercase mb-1'>Logo</label>
-              {formik.errors.logo && formik.touched.logo ? <span className='text-rose-400'>{formik.errors.logo}</span> : <></>}
-            </div>
-            <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.logo && formik.touched.logo ? 'border border-rose-600' : ''}`}>
-              <input
-                className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
-                type='text'
-                placeholder="Logo"
-                {...formik.getFieldProps('logo')}
-              />
-            </div>
-          </div> */}
           <div className='flex flex-col'>
             <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
               <label className='text-xs font-bold uppercase mb-1'>Logo</label>
@@ -162,7 +132,6 @@ export default function CreateProjectForm() {
               />
             </div>
           </div>
-
         </div>
 
         <div className='flex flex-col gap-2'>
