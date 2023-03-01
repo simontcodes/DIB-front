@@ -6,7 +6,7 @@ import Link from "next/link";
 // TO GET THE SESSION AND USER FROM NEXT AUTH
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
-import { User } from "types/interfaces";
+import { UserData, SidebarData } from "types/interfaces";
 import SideBar from "./sidebar";
 
 type PageProps = {
@@ -17,21 +17,15 @@ type PageProps = {
 
 export default function Dashboard(props: PageProps) {
   const { data: session } = useSession();
-  const [userData, setUserData] = useState<User>();
+  const [userData, setUserData] = useState<UserData>();
   const [userId, setUserId] = useState();
   const [userRoles, setUserRoles] = useState<string[]>([]);
 
-  const [sideBarData, setSideBarData] = useState({});
+  const [sideBarData, setSideBarData] = useState<SidebarData>({name:"",email:""});
 
   // FUNCTION TO FETCH USER
   const fetchUser = async () => {
     const isAdmin = session?.user?.role?.includes("Admin");
-    console.log(session);
-    console.log(
-      `http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${
-        session?.user?.id
-      }`
-    );
     const res = await fetch(
       `http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${
         session?.user?.id
@@ -45,10 +39,13 @@ export default function Dashboard(props: PageProps) {
       }
     );
     const data = await res.json();
-    setSideBarData(data);
+    // setSideBarData(data);
+    setSideBarData({
+      name: data.name,
+      email: data.email,
+    });
     console.log(data);
     setUserId(data._id);
-    console.log(typeof data.role === "string");
     if (typeof data.role === "string") {
       const roleToPush: string[] = [];
       roleToPush.push(data.role);
