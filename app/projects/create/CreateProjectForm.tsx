@@ -5,6 +5,7 @@ import '../create/CreateProjectForm.css'
 import { useFormik } from 'formik'
 import { createProjectForm_validate } from '../../lib/validate'
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 type CreateProjectForm = {
   companyName: string,
@@ -38,6 +39,7 @@ type CreateProjectFormBody = {
 export default function CreateProjectForm() {
 
   const [teamName, setTeamName] = useState('')
+  const [logoImage, setLogoImage] = useState<string | Blob>('')
 
   const fetchUser = async () => {
     const res = await fetch(`https://story-shack-cdn-v2.glitch.me/generators/team-name-generator`, {
@@ -55,22 +57,35 @@ export default function CreateProjectForm() {
   },[])
  
   const handleSubmitForm = async (values: CreateProjectForm) => {
-    const createProjectFormBody: CreateProjectFormBody = {
-      companyName: values.companyName,
-      logo: values.logo,
-      contactInfo: values.contactInfo,
-      teamName: values.teamName,
-      rolesNeeded: {
-        fullstackDeveloper: values.fullstackDeveloper,
-        frontendDeveloper: values.frontendDeveloper,
-        backendDeveloper: values.backendDeveloper,
-        pm: values.pm,
-        qaTester: values.qaTester,
-        uxui: values.uxui,
-        devOps: values.devOps,
-      }
+
+    const roles = [
+      {role: 'fullstackDeveloper', quantity: values.fullstackDeveloper},
+      {role: 'frontendDeveloper', quantity: values.frontendDeveloper},
+      {role: 'backendDeveloper', quantity: values.backendDeveloper},
+      {role: 'pm', quantity: values.pm},
+      {role: 'qaTester', quantity: values.qaTester},
+      {role: 'uxui', quantity: values.uxui},
+      {role: 'devOps', quantity: values.devOps}
+    ]
+
+    const createProjectFormData = new FormData()
+    createProjectFormData.append('company', values.companyName);
+    createProjectFormData.append('teamName', values.teamName);
+    createProjectFormData.append('contactInfo', values.contactInfo);
+    createProjectFormData.append('image', logoImage);
+    createProjectFormData.append('roles', JSON.stringify(roles));
+
+    try {
+      const res = await axios.post('http://localhost:8080/projects', createProjectFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE1ZDhlNDVlNzcyNDJmMDAxNjI5ZCIsImlhdCI6MTY3NzY4OTIxMSwiZXhwIjoxNjc3Nzc1NjExfQ.JvOChq56RSWzhQbhgdmOhLOcHvgHPrCOBX8sK_u52t4`
+        }
+      })
+      console.log(res.data)
+    } catch(error) {
+      console.log(error)
     }
-    console.log(createProjectFormBody)
   }
 
   const formik = useFormik({
@@ -117,7 +132,7 @@ export default function CreateProjectForm() {
             </div>
           </div>
 
-          <div className='flex flex-col'>
+          {/* <div className='flex flex-col'>
             <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
               <label className='text-xs font-bold uppercase mb-1'>Logo</label>
               {formik.errors.logo && formik.touched.logo ? <span className='text-rose-400'>{formik.errors.logo}</span> : <></>}
@@ -130,7 +145,24 @@ export default function CreateProjectForm() {
                 {...formik.getFieldProps('logo')}
               />
             </div>
+          </div> */}
+          <div className='flex flex-col'>
+            <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
+              <label className='text-xs font-bold uppercase mb-1'>Logo</label>
+              {formik.errors.logo && formik.touched.logo ? <span className='text-rose-400'>{formik.errors.logo}</span> : <></>}
+            </div>
+            <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.logo && formik.touched.logo ? 'border border-rose-600' : ''}`}>
+              <input
+                className='text-md p-3 rounded-md bg-transparent focus:outline-none w-full'
+                type='file'
+                id='logoImage'
+                name='logoImage'
+                accept='image/png, image/jpeg'
+                onChange={(event)=> {setLogoImage(event.target.files ? event.target.files[0] : ''); console.log(event)}}
+              />
+            </div>
           </div>
+
         </div>
 
         <div className='flex flex-col gap-2'>
@@ -139,7 +171,6 @@ export default function CreateProjectForm() {
             <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
               <label className='text-xs font-bold uppercase mb-1'>Contact Info</label>
               {formik.errors.contactInfo && formik.touched.contactInfo ? <span className='text-rose-400'>{formik.errors.contactInfo}</span> : <></>}
-              {/* {emailError ? <span className='text-rose-400'>{emailError}</span> : <></>} */}
             </div>
             <div className={`flex bg-emerald-100 rounded-md w-full ${formik.errors.contactInfo && formik.touched.contactInfo ? 'border border-rose-600' : ''}`}>
               <input
@@ -159,7 +190,6 @@ export default function CreateProjectForm() {
             <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
               <label className='text-xs font-bold uppercase mb-1'>Team Name</label>
               {formik.errors.teamName && formik.touched.teamName ? <span className='text-rose-400'>{formik.errors.teamName}</span> : <></>}
-              {/* {RolesError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{RolesError}</span> : <></>} */}
             </div>
             <div className={`flex bg-emerald-100 rounded-md w-full items-center ${formik.errors.teamName && formik.touched.teamName ? 'border border-rose-600' : ''}`}>
               <input
@@ -178,10 +208,6 @@ export default function CreateProjectForm() {
 
           <div className='flex flex-col'>
             <span className='text-sm font-bold uppercase mb-1'>Roles</span>
-            <div className='flex justify-between mb-1 text-xs font-bold uppercase gap-2'>
-              {/* {formik.errors.fullstackDeveloper && formik.touched.fullstackDeveloper ? <span className='text-rose-400'>{formik.errors.fullstackDeveloper}</span> : <></>} */}
-              {/* {RolesError ? <span className='text-xs font-bold uppercase mb-1 text-center text-rose-400'>{RolesError}</span> : <></>} */}
-            </div>
 
             <div className='flex flex-col gap-2'>
 
@@ -190,7 +216,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='fullstackDeveloper'>
                     Fullstack Developer :
                   </label>
-                  {formik.errors.fullstackDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.fullstackDeveloper}</span> : <></>}
+                  {formik.errors.fullstackDeveloper && formik.touched.fullstackDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.fullstackDeveloper}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.fullstackDeveloper && formik.touched.fullstackDeveloper ? 'border border-rose-600' : ''}`}>
                   <input
@@ -210,7 +236,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='frontendDeveloper'>
                     Frontend Developer :
                   </label>
-                  { formik.errors.frontendDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.frontendDeveloper}</span> : <></>}
+                  { formik.errors.frontendDeveloper && formik.touched.frontendDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.frontendDeveloper}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.frontendDeveloper && formik.touched.frontendDeveloper ? 'border border-rose-600' : ''}`}>
                   <input
@@ -230,7 +256,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='backendDeveloper'>
                     Backend Developer :
                   </label>
-                  { formik.errors.backendDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.backendDeveloper}</span> : <></>}
+                  { formik.errors.backendDeveloper && formik.touched.backendDeveloper ? <span className='self-center text-rose-400 ml-2'>{formik.errors.backendDeveloper}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.backendDeveloper && formik.touched.backendDeveloper ? 'border border-rose-600' : ''}`}>
                   <input
@@ -250,7 +276,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='pm'>
                     Project Manager :
                   </label>
-                  { formik.errors.pm ? <span className='self-center text-rose-400 ml-2'>{formik.errors.pm}</span> : <></>}
+                  { formik.errors.pm && formik.touched.pm ? <span className='self-center text-rose-400 ml-2'>{formik.errors.pm}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.pm && formik.touched.pm ? 'border border-rose-600' : ''}`}>
                   <input
@@ -270,7 +296,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='qaTester'>
                     QA Tester :
                   </label>
-                  { formik.errors.qaTester ? <span className='self-center text-rose-400 ml-2'>{formik.errors.qaTester}</span> : <></>}
+                  { formik.errors.qaTester && formik.touched.qaTester ? <span className='self-center text-rose-400 ml-2'>{formik.errors.qaTester}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.qaTester && formik.touched.qaTester ? 'border border-rose-600' : ''}`}>
                   <input
@@ -290,7 +316,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='uxui'>
                     UX/UI :
                   </label>
-                  { formik.errors.uxui ? <span className='self-center text-rose-400 ml-2'>{formik.errors.uxui}</span> : <></>}
+                  { formik.errors.uxui && formik.touched.uxui ? <span className='self-center text-rose-400 ml-2'>{formik.errors.uxui}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.uxui && formik.touched.uxui ? 'border border-rose-600' : ''}`}>
                   <input
@@ -310,7 +336,7 @@ export default function CreateProjectForm() {
                   <label htmlFor='devOps'>
                     DevOps :
                   </label>
-                  { formik.errors.devOps ? <span className='self-center text-rose-400 ml-2'>{formik.errors.devOps}</span> : <></>}
+                  { formik.errors.devOps && formik.touched.devOps ? <span className='self-center text-rose-400 ml-2'>{formik.errors.devOps}</span> : <></>}
                 </div>
                 <div className={`bg-emerald-100 p-3 rounded-md ${formik.errors.devOps && formik.touched.devOps ? 'border border-rose-600' : ''}`}>
                   <input

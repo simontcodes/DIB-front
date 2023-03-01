@@ -103,25 +103,25 @@ export function createProjectForm_validate(values: CreateProjectForm) {
   
   // validation for company name
   if(!values.companyName) {
-    console.log('company error')
+    // console.log('company error')
     errors.companyName = 'Required'
   }
 
   // validation for logo
-  if(!values.logo) {
-    console.log('logo error')
-    errors.logo = 'Required'
-  }
+  // if(!values.logo) {
+  //   // console.log('logo error')
+  //   errors.logo = 'Required'
+  // }
 
   // validation for contact info
   if(!values.contactInfo) {
-    console.log('contact error')
+    // console.log('contact error')
     errors.contactInfo = 'Required'
   }
 
   // validation for team name
   if(!values.teamName) {
-    console.log('team name error')
+    // console.log('team name error')
     errors.teamName = 'Required'
   }
 
@@ -131,31 +131,24 @@ export function createProjectForm_validate(values: CreateProjectForm) {
   //   errors.rolesNeeded = 'Needs at least one'
   // }
   if(!values.fullstackDeveloper) {
-    console.log('')
     errors.fullstackDeveloper = 'Needs at least one'
   }
   if(!values.frontendDeveloper) {
-    console.log('')
     errors.frontendDeveloper = 'Needs at least one'
   }
   if(!values.backendDeveloper) {
-    console.log('')
     errors.backendDeveloper = 'Needs at least one'
   }
   if(!values.pm) {
-    console.log('')
     errors.pm = 'Needs at least one'
   }
   if(!values.qaTester) {
-    console.log('')
     errors.qaTester = 'Needs at least one'
   }
   if(!values.uxui) {
-    console.log('')
     errors.uxui = 'Needs at least one'
   }
   if(!values.devOps) {
-    console.log('')
     errors.devOps = 'Needs at least one'
   }
 
