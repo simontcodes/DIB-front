@@ -3,8 +3,8 @@ import {SidebarData} from "types/interfaces";
 export default function SideBar({data}:{data:SidebarData}) {
   console.log(data);
   return (
-    <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col">
-      <div className="w-64  bg-gray-900 rounded-md">
+    <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col pt-[64px]">
+      <div className="flex flex-col h-full w-64 bg-gray-900 rounded-md">
         <div className="px-6 pt-8">
           <div className="flex items-center justify-between">
             <a
@@ -56,6 +56,7 @@ export default function SideBar({data}:{data:SidebarData}) {
             </button>
           </div>
         </div>
+        {/* Search Bar */}
         <div className="px-6 pt-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
@@ -80,9 +81,11 @@ export default function SideBar({data}:{data:SidebarData}) {
             />
           </div>
         </div>
+        {/* Division */}
         <div className="px-6 pt-4">
           <hr className="border-gray-700" />
         </div>
+        {/* Mid Section */}
         <div className="px-6 pt-4">
           <ul className="flex flex-col space-y-2">
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -379,9 +382,11 @@ export default function SideBar({data}:{data:SidebarData}) {
             </li>
           </ul>
         </div>
+        {/* Division */}
         <div className="px-6 pt-8">
           <hr className="border-gray-700" />
         </div>
+        {/* Bottom Section */}
         <div className="px-6 pt-4 pb-8">
           <ul>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
@@ -490,7 +495,8 @@ export default function SideBar({data}:{data:SidebarData}) {
             </li>
           </ul>
         </div>
-        <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between">
+        {/* User Bar */}
+        <div className="pl-6 pr-4 py-4 bg-[#232529] flex items-center justify-between mt-auto">
           <div className="flex items-center">
             <div className="relative w-8 h-8 rounded-full before:absolute before:w-2 before:h-2 before:bg-green-500 before:rounded-full before:right-0 before:bottom-0 before:ring-1 before:ring-white">
               <img
