@@ -1,10 +1,6 @@
-// import {SidebarData} from "types/interfaces";
 import SideBarUserBar from "./sidebar-userbar";
 
-export default function SideBar(
-  // {data}:{data:SidebarData}
-  ) {
-  // console.log(data);
+export default function SideBar() {
   return (
     <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col pt-[64px]">
       <div className="flex flex-col h-full w-64 bg-gray-900 rounded-md">

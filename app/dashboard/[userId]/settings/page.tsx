@@ -9,7 +9,6 @@ import { User } from 'types/interfaces'
 type updateBody = {
   name: string,
   role: string[] | undefined[],
-  // role: string | undefined,
 }
 
 type selectedRolesObject = {
