@@ -168,7 +168,7 @@ export default function Dashboard() {
   // }
 
   const handleViewing = (e: React.MouseEvent) => {
-    console.log(`Viewing ${e.currentTarget.textContent}`)
+    // console.log(`Viewing ${e.currentTarget.textContent}`)
     if (e.currentTarget.textContent == 'Dashboard') setViewingDashboard(true); else setViewingDashboard(false)
     if (e.currentTarget.textContent == 'Team') setViewingTeam(true); else setViewingTeam(false)
     if (e.currentTarget.textContent == 'Project Board') setViewingProjectBoard(true); else setViewingProjectBoard(false)
