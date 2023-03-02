@@ -26,11 +26,7 @@ export default function Dashboard(props: PageProps) {
   // FUNCTION TO FETCH USER
   const fetchUser = async () => {
     const isAdmin = session?.user?.role?.includes("Admin");
-    const res = await fetch(
-      `http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${
-        session?.user?.id
-      }`,
-      {
+    const res = await fetch(`http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${session?.user?.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +40,6 @@ export default function Dashboard(props: PageProps) {
       name: data.name,
       email: data.email,
     });
-    console.log(data);
     setUserId(data._id);
     if (typeof data.role === "string") {
       const roleToPush: string[] = [];
@@ -153,8 +148,10 @@ export default function Dashboard(props: PageProps) {
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if(session) {
+      fetchUser();
+    }
+  }, [session]);
 
   if (!userData) {
     return <p>Loading</p>;
@@ -206,7 +203,7 @@ export default function Dashboard(props: PageProps) {
           </div>
         </div>
       </div>
-      <SideBar data={sideBarData} />
+      <SideBar/>
     </>
   );
 }
