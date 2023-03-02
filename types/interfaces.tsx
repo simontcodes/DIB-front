@@ -4,3 +4,15 @@ export interface User {
   role?: string | undefined;
   token?: any;
 }
+export interface UserData {
+  _id: string,
+  name: string,
+  email: string,
+  password: string,
+  role: string,
+  __v: number
+}
+export interface SidebarData {
+  name: string,
+  email: string,
+}
