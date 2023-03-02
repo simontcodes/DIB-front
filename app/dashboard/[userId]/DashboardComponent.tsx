@@ -144,7 +144,7 @@ export default function DashboardComponent() {
   }
 
   return (
-    <>
+    <section className="px-8">
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
       <div className="flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl">
         <div className="flex justify-center items-center absolute bottom-8 right-16 h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600">
@@ -187,6 +187,6 @@ export default function DashboardComponent() {
           )}
         </div>
       </div>
-    </>
+    </section>
   );
 }

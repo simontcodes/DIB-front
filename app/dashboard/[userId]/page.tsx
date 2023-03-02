@@ -13,6 +13,7 @@ import {
 
 import SideBar from "./sidebar";
 import DashboardComponent from "./DashboardComponent";
+import ProjectBoardComponent from "./ProjectBoardComponent";
 
 // type PageProps = {
 //   params: {
@@ -172,16 +173,14 @@ export default function Dashboard() {
     if (e.currentTarget.textContent == 'Team') setViewingTeam(true); else setViewingTeam(false)
     if (e.currentTarget.textContent == 'Project Board') setViewingProjectBoard(true); else setViewingProjectBoard(false)
     if (e.currentTarget.textContent == 'Project History') setViewingProjectHistory(true); else setViewingProjectHistory(false)
-    // setViewingDashboard(false)
-    // setViewingTeam(false)
   }
 
   return (
     <>
-      <div className="w-full max-w-[1280px] pt-16">
+      <div className="w-full pt-16">
         {viewingDashboard?<DashboardComponent />:<></>}
         {viewingTeam?<h1>Team Board</h1>:<></>}
-        {viewingProjectBoard?<h1>Project Board</h1>:<></>}
+        {viewingProjectBoard?<ProjectBoardComponent />:<></>}
         {viewingProjectHistory?<h1>Project History</h1>:<></>}
         {/* <DashboardComponent /> */}
         {/* <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
