@@ -1,6 +1,10 @@
 import SideBarUserBar from "./sidebar-userbar";
 
-export default function SideBar() {
+export default function SideBar({
+    handleViewing
+  }:{
+    handleViewing:React.MouseEventHandler
+  }) {
   return (
     <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col pt-[64px]">
       <div className="flex flex-col h-full w-64 bg-gray-900 rounded-md">
@@ -117,12 +121,13 @@ export default function SideBar() {
                   ></path>
                 </svg>
               </div>
-              <a
-                href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              <div
+                // href="#"
+                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer"
+                onClick={handleViewing}
               >
                 Dashboard
-              </a>
+              </div>
             </li>
             <li className="">
               <div className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white">
@@ -249,17 +254,18 @@ export default function SideBar() {
                   ></path>
                 </svg>
               </div>
-              <a
-                href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              <div
+                // href="#"
+                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer"
+                onClick={handleViewing}
               >
                 Team
-              </a>
+              </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
               <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
                 <svg
-                  className="w-5 h-5 stroke-curren stroke-[1.5]t"
+                  className="w-5 h-5 stroke-current stroke-[1.5]t"
                   fill="none"
                   viewBox="0 0 24 24"
                 >
@@ -273,12 +279,13 @@ export default function SideBar() {
                   ></path>
                 </svg>
               </div>
-              <a
-                href="#"
+              <div
+                // href="#"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                onClick={handleViewing}
               >
                 Project Board
-              </a>
+              </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
               <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
@@ -310,12 +317,13 @@ export default function SideBar() {
                   ></path>
                 </svg>
               </div>
-              <a
-                href="#"
+              <div
+                // href="#"
                 className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                onClick={handleViewing}
               >
-                Project history
-              </a>
+                Project History
+              </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
               <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">

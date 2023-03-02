@@ -1,166 +1,190 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
+// import Link from "next/link";
 
 // TO GET THE SESSION AND USER FROM NEXT AUTH
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
-import { UserData, SidebarData } from "types/interfaces";
+// import { useSession } from "next-auth/react";
+import { 
+  useState, 
+  // useEffect 
+} from "react";
+// import { UserData, SidebarData } from "types/interfaces";
+
 import SideBar from "./sidebar";
+import DashboardComponent from "./DashboardComponent";
 
-type PageProps = {
-  params: {
-    userId: string;
-  };
-};
+// type PageProps = {
+//   params: {
+//     userId: string;
+//   };
+// };
 
-export default function Dashboard(props: PageProps) {
-  const { data: session } = useSession();
-  const [userData, setUserData] = useState<UserData>();
-  const [userId, setUserId] = useState();
-  const [userRoles, setUserRoles] = useState<string[]>([]);
+export default function Dashboard() {
+  // const { data: session } = useSession();
+  // const [userData, setUserData] = useState<UserData>();
+  // const [userId, setUserId] = useState();
+  // const [userRoles, setUserRoles] = useState<string[]>([]);
+  const [viewingDashboard, setViewingDashboard] = useState(true)
+  const [viewingTeam, setViewingTeam] = useState(false)
+  const [viewingProjectBoard, setViewingProjectBoard] = useState(false)
+  const [viewingProjectHistory, setViewingProjectHistory] = useState(false)
 
-  const [sideBarData, setSideBarData] = useState<SidebarData>({name:"",email:""});
+  // const [sideBarData, setSideBarData] = useState<SidebarData>({name:"",email:""});
 
-  // FUNCTION TO FETCH USER
-  const fetchUser = async () => {
-    const isAdmin = session?.user?.role?.includes("Admin");
-    const res = await fetch(`http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${session?.user?.id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `bearer ${session?.user?.token}`,
-        },
-      }
-    );
-    const data = await res.json();
-    // setSideBarData(data);
-    setSideBarData({
-      name: data.name,
-      email: data.email,
-    });
-    setUserId(data._id);
-    if (typeof data.role === "string") {
-      const roleToPush: string[] = [];
-      roleToPush.push(data.role);
-      setUserRoles(roleToPush);
-    } else {
-      setUserRoles(data.role);
-    }
-    setUserData(data);
-  };
+  // // FUNCTION TO FETCH USER
+  // const fetchUser = async () => {
+  //   const isAdmin = session?.user?.role?.includes("Admin");
+  //   const res = await fetch(`http://localhost:8080/${isAdmin ? "admins" : "dibs"}/${session?.user?.id}`, {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `bearer ${session?.user?.token}`,
+  //       },
+  //     }
+  //   );
+  //   const data = await res.json();
+  //   // setSideBarData(data);
+  //   setSideBarData({
+  //     name: data.name,
+  //     email: data.email,
+  //   });
+  //   setUserId(data._id);
+  //   if (typeof data.role === "string") {
+  //     const roleToPush: string[] = [];
+  //     roleToPush.push(data.role);
+  //     setUserRoles(roleToPush);
+  //   } else {
+  //     setUserRoles(data.role);
+  //   }
+  //   setUserData(data);
+  // };
 
-  // FUNCTION TO CREATE THE ROLE TAGS DEPENDING ON USER ROLES
-  const tokenSwitch = (roles: string | undefined, index: number) => {
-    switch (roles) {
-      case "Fullstack Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md "
-          >
-            <div className="h-4 w-4 bg-purple-500 rounded-full"></div>
-            <span className="font-bold text-white">FullStack</span>
-          </div>
-        );
-      case "Frontend Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-green-500 rounded-full"></div>
-            <span className="font-bold text-white">Front-End</span>
-          </div>
-        );
-      case "Backend Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-blue-500 rounded-full"></div>
-            <span className="font-bold text-white">Back-End</span>
-          </div>
-        );
-      case "Project Manager":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-yellow-500 rounded-full"></div>
-            <span className="font-bold text-white">PM</span>
-          </div>
-        );
-      case "QA Tester":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-red-500 rounded-full"></div>
-            <span className="font-bold text-white">QA Tester</span>
-          </div>
-        );
-      case "UX/UI":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-pink-500 rounded-full"></div>
-            <span className="font-bold text-white">UX/UI</span>
-          </div>
-        );
-      case "DevOps":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-black rounded-full"></div>
-            <span className="font-bold text-white">DevOps</span>
-          </div>
-        );
-      case "Regular Admin":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-white rounded-full"></div>
-            <span className="font-bold text-white">Admin</span>
-          </div>
-        );
-      case "Super Admin":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-pink-400 rounded-full"></div>
-            <span className="font-bold text-white">Super Admin</span>
-          </div>
-        );
-    }
-  };
+  // // FUNCTION TO CREATE THE ROLE TAGS DEPENDING ON USER ROLES
+  // const tokenSwitch = (roles: string | undefined, index: number) => {
+  //   switch (roles) {
+  //     case "Fullstack Developer":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md "
+  //         >
+  //           <div className="h-4 w-4 bg-purple-500 rounded-full"></div>
+  //           <span className="font-bold text-white">FullStack</span>
+  //         </div>
+  //       );
+  //     case "Frontend Developer":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-green-500 rounded-full"></div>
+  //           <span className="font-bold text-white">Front-End</span>
+  //         </div>
+  //       );
+  //     case "Backend Developer":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-blue-500 rounded-full"></div>
+  //           <span className="font-bold text-white">Back-End</span>
+  //         </div>
+  //       );
+  //     case "Project Manager":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-yellow-500 rounded-full"></div>
+  //           <span className="font-bold text-white">PM</span>
+  //         </div>
+  //       );
+  //     case "QA Tester":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-red-500 rounded-full"></div>
+  //           <span className="font-bold text-white">QA Tester</span>
+  //         </div>
+  //       );
+  //     case "UX/UI":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-pink-500 rounded-full"></div>
+  //           <span className="font-bold text-white">UX/UI</span>
+  //         </div>
+  //       );
+  //     case "DevOps":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-black rounded-full"></div>
+  //           <span className="font-bold text-white">DevOps</span>
+  //         </div>
+  //       );
+  //     case "Regular Admin":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-white rounded-full"></div>
+  //           <span className="font-bold text-white">Admin</span>
+  //         </div>
+  //       );
+  //     case "Super Admin":
+  //       return (
+  //         <div
+  //           key={index}
+  //           className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
+  //         >
+  //           <div className="h-4 w-4 bg-pink-400 rounded-full"></div>
+  //           <span className="font-bold text-white">Super Admin</span>
+  //         </div>
+  //       );
+  //   }
+  // };
 
-  useEffect(() => {
-    if(session) {
-      fetchUser();
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if(session) {
+  //     fetchUser();
+  //   }
+  // }, [session]);
 
-  if (!userData) {
-    return <p>Loading</p>;
+  // if (!userData) {
+  //   return <p>Loading</p>;
+  // }
+
+  const handleViewing = (e: React.MouseEvent) => {
+    console.log(`Viewing ${e.currentTarget.textContent}`)
+    if (e.currentTarget.textContent == 'Dashboard') setViewingDashboard(true); else setViewingDashboard(false)
+    if (e.currentTarget.textContent == 'Team') setViewingTeam(true); else setViewingTeam(false)
+    if (e.currentTarget.textContent == 'Project Board') setViewingProjectBoard(true); else setViewingProjectBoard(false)
+    if (e.currentTarget.textContent == 'Project History') setViewingProjectHistory(true); else setViewingProjectHistory(false)
+    // setViewingDashboard(false)
+    // setViewingTeam(false)
   }
 
   return (
     <>
       <div className="w-full max-w-[1280px] pt-16">
-        <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
+        {viewingDashboard?<DashboardComponent />:<></>}
+        {viewingTeam?<h1>Team Board</h1>:<></>}
+        {viewingProjectBoard?<h1>Project Board</h1>:<></>}
+        {viewingProjectHistory?<h1>Project History</h1>:<></>}
+        {/* <DashboardComponent /> */}
+        {/* <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
         <div className="flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl">
           <div className="flex justify-center items-center absolute bottom-8 right-16 h-64 w-64 overflow-hidden rounded-full border-8 bg-emerald-600">
             <img
@@ -201,9 +225,9 @@ export default function Dashboard(props: PageProps) {
               userRoles.map((role, index) => tokenSwitch(role, index))
             )}
           </div>
-        </div>
+        </div> */}
       </div>
-      <SideBar/>
+      <SideBar handleViewing={handleViewing} />
     </>
   );
 }
