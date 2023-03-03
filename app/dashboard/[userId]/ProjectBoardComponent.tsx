@@ -1,6 +1,8 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+import Image from "next/image";
+
 type Project = {
   company: string,
   logo: string,
@@ -57,19 +59,27 @@ export default function ProjectBoardComponent() {
 
         {projectData.map((project, index) => 
           <div className="flex flex-col rounded-xl w-[500px] h-[350px] bg-emerald-600 overflow-hidden" key={index}>
-
             <div className="top flex flex-col items-center justify-between bg-gray-800 p-4 flex-grow">
-              <div className="w-[7rem] h-[7rem] bg-gray-400 rounded-xl"></div>
+              <div className="w-[7rem] h-[7rem] bg-gray-400 rounded-xl overflow-hidden">
+                {project.logo === undefined ? <></> 
+                : <Image
+                    className="object-cover h-full w-full"
+                    src={`http://localhost:8080/${project.logo}`}
+                    width={300}
+                    height={300}
+                    alt='company logo'
+                  />
+                }
+              </div>
               <span className="font-bold text-white text-2xl">{project.company}</span>
             </div>
-
             <div className="bottom flex flex-col gap-2 p-4 h-[45%]">
               <span className="font-bold text-white">Available Roles</span>
               <div className="flex flex-wrap w-full gap-1">
                 {!project.rolesNeeded.length 
                   ? 'none needed' 
-                  : project.rolesNeeded.map((role)=> 
-                    <div className="flex bg-emerald-200 py-1 px-2 w-fit rounded uppercase text-xs font-bold items-center">
+                  : project.rolesNeeded.map((role, index)=> 
+                    <div className="flex bg-emerald-200 py-1 px-2 w-fit rounded uppercase text-xs font-bold items-center" key={index}>
                       <span className="mr-2">{role.role}</span>
                       <span className="flex w-5 h-5 justify-center items-center rounded-full bg-emerald-400">{role.quantity}</span>
                     </div>
@@ -77,7 +87,6 @@ export default function ProjectBoardComponent() {
                 }
               </div>
             </div>
-
           </div>
         )}
         
