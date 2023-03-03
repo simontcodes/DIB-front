@@ -49,22 +49,23 @@ export const authOptions:NextAuthOptions = {
     // ...add more providers here
   ],
   callbacks: {
-    // async session({ session, token }) {
-    //   // console.log("checking token :", token)
-    //   if (session?.user) {
-    //     session.user.id = token.sub;
-    //   }
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   console.log(token)
-    //   if (account) {
-    //     token.accessToken = account.access_token
-    //   }
-    //   return token
-    // } 
-    async session({session, token, user}) {
+    async session({session, token}) {
       session.user = token;
+      const isAdmin = token.role.includes("Admin")
+
+      if (token?.id) {
+        const url = `http://localhost:8080/${isAdmin ? 'admins' : 'dibs'}/${token?.id}`;
+        const apiResp = await fetch(`http://localhost:8080/${isAdmin ? 'admins' : 'dibs'}/${token?.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${token?.token}`,
+          },
+        });
+
+        const response = await apiResp.json()
+        session.user = { ...session.user, ...response };
+      }
       return session;
     },
     async jwt({token, user}) {

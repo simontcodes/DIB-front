@@ -34,6 +34,12 @@ export default function DashboardComponent() {
     setUserData(data);
   };
 
+  const reloadSession = () => {
+    console.log("reloading")
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  };
+
   // FUNCTION TO CREATE THE ROLE TAGS DEPENDING ON USER ROLES
   const tokenSwitch = (roles: string | undefined, index: number) => {
     switch (roles) {
