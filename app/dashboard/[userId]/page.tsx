@@ -15,6 +15,7 @@ import SideBar from "./sidebar";
 import DashboardComponent from "./DashboardComponent";
 import ProjectBoardComponent from "./ProjectBoardComponent";
 import MembersComponent from "./MembersComponent";
+import SettingsComponent from "./SettingsComponent";
 
 // type PageProps = {
 //   params: {
@@ -32,6 +33,7 @@ export default function Dashboard() {
   const [viewingTeam, setViewingTeam] = useState(false)
   const [viewingProjectBoard, setViewingProjectBoard] = useState(false)
   const [viewingProjectHistory, setViewingProjectHistory] = useState(false)
+  const [viewingSettings, setViewingSettings] = useState(false)
 
   // const [sideBarData, setSideBarData] = useState<SidebarData>({name:"",email:""});
 
@@ -176,6 +178,7 @@ export default function Dashboard() {
     if (e.currentTarget.textContent == 'Team') setViewingTeam(true); else setViewingTeam(false)
     if (e.currentTarget.textContent == 'Project Board') setViewingProjectBoard(true); else setViewingProjectBoard(false)
     if (e.currentTarget.textContent == 'Project History') setViewingProjectHistory(true); else setViewingProjectHistory(false)
+    if (e.currentTarget.textContent == 'Settings') setViewingSettings(true); else setViewingSettings(false)
   }
 
   return (
@@ -186,6 +189,7 @@ export default function Dashboard() {
         {viewingTeam?<h1>Team Board</h1>:<></>}
         {viewingProjectBoard?<ProjectBoardComponent />:<></>}
         {viewingProjectHistory?<h1>Project History</h1>:<></>}
+        {viewingSettings?<SettingsComponent />:<></>}
         {/* <DashboardComponent /> */}
         {/* <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
         <div className="flex flex-col justify-center p-16 w-full h-48 relative bg-emerald-400 rounded-3xl">
@@ -237,6 +241,7 @@ export default function Dashboard() {
       viewingTeam={viewingTeam}
       viewingProjectBoard={viewingProjectBoard}
       viewingProjectHistory={viewingProjectHistory}
+      viewingSettings={viewingSettings}
       />
     </>
   );

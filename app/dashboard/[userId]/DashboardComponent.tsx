@@ -1,8 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-
 // TO GET THE SESSION AND USER FROM NEXT AUTH
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
@@ -155,7 +152,7 @@ export default function DashboardComponent() {
             alt="profile"
           />
         </div>
-        <Link
+        {/* <Link
           className="absolute right-4 top-4 z-10 h-8 w-8"
           href={`/dashboard/${userId}/settings`}
         >
@@ -167,7 +164,7 @@ export default function DashboardComponent() {
           alt="settings"
           width="32"
           height="32"
-        />
+        /> */}
         <div className="flex flex-col gap-4">
           <span className="text-4xl font-bold">Hey, {userData?.name}</span>
           <p>How are you today? Ready to tackle some projects?</p>

@@ -7,6 +7,7 @@ export default function SideBar({
     viewingTeam,
     viewingProjectBoard,
     viewingProjectHistory,
+    viewingSettings,
   }:{
     handleViewing:React.MouseEventHandler,
     viewingDashboard:boolean,
@@ -14,6 +15,7 @@ export default function SideBar({
     viewingTeam:boolean,
     viewingProjectBoard:boolean,
     viewingProjectHistory:boolean,
+    viewingSettings:boolean,
   }) {
   return (
     <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col pt-[64px]">
@@ -443,7 +445,7 @@ export default function SideBar({
         <div className="px-6 pt-4 pb-8">
           <ul>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingSettings?'text-white':''}`}>
                 <svg
                   className="w-5 h-5 stroke-current stroke-[1.5]"
                   fill="none"
@@ -465,12 +467,14 @@ export default function SideBar({
                   ></path>
                 </svg>
               </div>
-              <a
-                href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+              <div
+                // href="#"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingSettings?'bg-gray-800 text-white':''}`}
+                onClick={handleViewing}
+                tabIndex={0}
               >
                 Settings
-              </a>
+              </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
               <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
