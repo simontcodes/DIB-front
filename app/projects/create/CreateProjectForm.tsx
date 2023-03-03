@@ -2,6 +2,8 @@
 
 import '../create/CreateProjectForm.css'
 
+import { useSession } from "next-auth/react";
+
 import { useFormik } from 'formik'
 import { createProjectForm_validate } from '../../lib/validate'
 import { useState, useEffect } from 'react'
@@ -22,6 +24,8 @@ type CreateProjectForm = {
 }
 
 export default function CreateProjectForm() {
+
+  const { data:session } = useSession()
 
   const [teamName, setTeamName] = useState('')
   const [logoImage, setLogoImage] = useState<string | Blob>('')
@@ -63,7 +67,7 @@ export default function CreateProjectForm() {
       const res = await axios.post('http://localhost:8080/projects', createProjectFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWE1ZDhlNDVlNzcyNDJmMDAxNjI5ZCIsImlhdCI6MTY3NzY4OTIxMSwiZXhwIjoxNjc3Nzc1NjExfQ.JvOChq56RSWzhQbhgdmOhLOcHvgHPrCOBX8sK_u52t4`
+          Authorization: `bearer ${session?.user?.token}`
         }
       })
       console.log(res.data)
@@ -92,6 +96,10 @@ export default function CreateProjectForm() {
       // action.resetForm()
     }
   })
+
+  if (!session) {
+    return <h1>Loading</h1>
+  }
   
   return (
     <div className="flex flex-col">
