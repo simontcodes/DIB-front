@@ -1,9 +1,19 @@
 import SideBarUserBar from "./sidebar-userbar";
 
 export default function SideBar({
-    handleViewing
+    handleViewing,
+    viewingDashboard,
+    viewingMembers,
+    viewingTeam,
+    viewingProjectBoard,
+    viewingProjectHistory,
   }:{
-    handleViewing:React.MouseEventHandler
+    handleViewing:React.MouseEventHandler,
+    viewingDashboard:boolean,
+    viewingMembers:boolean,
+    viewingTeam:boolean,
+    viewingProjectBoard:boolean,
+    viewingProjectHistory:boolean,
   }) {
   return (
     <div className="fixed h-full top-0 left-0 w-64 bg-gray-900 text-white flex flex-col pt-[64px]">
@@ -92,7 +102,7 @@ export default function SideBar({
         <div className="px-6 pt-4">
           <ul className="flex flex-col space-y-2">
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingDashboard?'text-white':''}`}>
                 <svg
                   className="w-5 h-5 stroke-current stroke-[1.5]"
                   fill="none"
@@ -123,13 +133,14 @@ export default function SideBar({
               </div>
               <div
                 // href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingDashboard?'bg-gray-800 text-white':''}`}
                 onClick={handleViewing}
+                tabIndex={0}
               >
                 Dashboard
               </div>
             </li>
-            <li className="">
+            {/* <li className="">
               <div className="relative flex justify-between text-gray-500 hover:text-white focus-within:text-white">
                 <div className="flex items-center w-full">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
@@ -230,9 +241,9 @@ export default function SideBar({
                   </li>
                 </ul>
               </div>
-            </li>
+            </li> */}
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingMembers?'text-white':''}`}>
                 <svg
                   className="w-5 h-5 stroke-current stroke-[1.5]"
                   fill="none"
@@ -256,14 +267,47 @@ export default function SideBar({
               </div>
               <div
                 // href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingMembers?'text-white bg-gray-800':''}`}
                 onClick={handleViewing}
+                tabIndex={0}
+              >
+                Members
+              </div>
+            </li>
+            <li className="relative text-gray-500 hover:text-white focus-within:text-white">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingTeam?'text-white':''}`}>
+                <svg
+                  className="w-5 h-5 stroke-current stroke-[1.5]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4.75L19.25 9L12 13.25L4.75 9L12 4.75Z"
+                    // stroke="currentColor"
+                    // stroke-width="1.5"
+                    // stroke-linecap="round"
+                    // stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M9.25 12L4.75 15L12 19.25L19.25 15L14.6722 12"
+                    // stroke="currentColor"
+                    // stroke-width="1.5"
+                    // stroke-linecap="round"
+                    // stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                // href="#"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingTeam?'bg-gray-800 text-white':''}`}
+                onClick={handleViewing}
+                tabIndex={0}
               >
                 Team
               </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingProjectBoard?'text-white':''}`}>
                 <svg
                   className="w-5 h-5 stroke-current stroke-[1.5]t"
                   fill="none"
@@ -281,14 +325,15 @@ export default function SideBar({
               </div>
               <div
                 // href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingProjectBoard?'bg-gray-800 text-white':''}`}
                 onClick={handleViewing}
+                tabIndex={0}
               >
                 Project Board
               </div>
             </li>
             <li className="relative text-gray-500 hover:text-white focus-within:text-white">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+              <div className={`absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none ${viewingProjectHistory?'text-white':''}`}>
                 <svg
                   className="w-5 h-5 stroke-current stroke-[1.5]"
                   fill="none"
@@ -319,8 +364,9 @@ export default function SideBar({
               </div>
               <div
                 // href="#"
-                className="inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800"
+                className={`inline-block w-full py-2 pl-8 pr-4 text-xs rounded hover:bg-gray-800 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:bg-gray-800 cursor-pointer ${viewingProjectHistory?'bg-gray-800 text-white':''}`}
                 onClick={handleViewing}
+                tabIndex={0}
               >
                 Project History
               </div>

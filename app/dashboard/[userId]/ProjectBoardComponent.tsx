@@ -79,7 +79,11 @@ export default function ProjectBoardComponent() {
                 {!project.rolesNeeded.length 
                   ? 'none needed' 
                   : project.rolesNeeded.map((role, index)=> 
-                    <div className="flex bg-emerald-200 py-1 px-2 w-fit rounded uppercase text-xs font-bold items-center" key={index}>
+                    <div 
+                    className="flex bg-emerald-200 py-1 px-2 w-fit rounded uppercase text-xs font-bold items-center" 
+                    key={index}
+                    onClick={(e) => {console.log("Applying to", e.currentTarget.firstChild?.textContent)}}
+                    >
                       <span className="mr-2">{role.role}</span>
                       <span className="flex w-5 h-5 justify-center items-center rounded-full bg-emerald-400">{role.quantity}</span>
                     </div>

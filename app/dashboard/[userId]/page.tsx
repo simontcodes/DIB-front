@@ -14,6 +14,7 @@ import {
 import SideBar from "./sidebar";
 import DashboardComponent from "./DashboardComponent";
 import ProjectBoardComponent from "./ProjectBoardComponent";
+import MembersComponent from "./MembersComponent";
 
 // type PageProps = {
 //   params: {
@@ -27,6 +28,7 @@ export default function Dashboard() {
   // const [userId, setUserId] = useState();
   // const [userRoles, setUserRoles] = useState<string[]>([]);
   const [viewingDashboard, setViewingDashboard] = useState(true)
+  const [viewingMembers, setViewingMembers] = useState(false)
   const [viewingTeam, setViewingTeam] = useState(false)
   const [viewingProjectBoard, setViewingProjectBoard] = useState(false)
   const [viewingProjectHistory, setViewingProjectHistory] = useState(false)
@@ -170,6 +172,7 @@ export default function Dashboard() {
   const handleViewing = (e: React.MouseEvent) => {
     // console.log(`Viewing ${e.currentTarget.textContent}`)
     if (e.currentTarget.textContent == 'Dashboard') setViewingDashboard(true); else setViewingDashboard(false)
+    if (e.currentTarget.textContent == 'Members') setViewingMembers(true); else setViewingMembers(false)
     if (e.currentTarget.textContent == 'Team') setViewingTeam(true); else setViewingTeam(false)
     if (e.currentTarget.textContent == 'Project Board') setViewingProjectBoard(true); else setViewingProjectBoard(false)
     if (e.currentTarget.textContent == 'Project History') setViewingProjectHistory(true); else setViewingProjectHistory(false)
@@ -179,6 +182,7 @@ export default function Dashboard() {
     <>
       <div className="w-full pt-16">
         {viewingDashboard?<DashboardComponent />:<></>}
+        {viewingMembers?<MembersComponent />:<></>}
         {viewingTeam?<h1>Team Board</h1>:<></>}
         {viewingProjectBoard?<ProjectBoardComponent />:<></>}
         {viewingProjectHistory?<h1>Project History</h1>:<></>}
@@ -226,7 +230,14 @@ export default function Dashboard() {
           </div>
         </div> */}
       </div>
-      <SideBar handleViewing={handleViewing} />
+      <SideBar 
+      handleViewing={handleViewing} 
+      viewingDashboard={viewingDashboard}
+      viewingMembers={viewingMembers}
+      viewingTeam={viewingTeam}
+      viewingProjectBoard={viewingProjectBoard}
+      viewingProjectHistory={viewingProjectHistory}
+      />
     </>
   );
 }
