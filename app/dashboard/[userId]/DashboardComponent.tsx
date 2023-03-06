@@ -4,6 +4,7 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { UserData } from "types/interfaces";
+import {RoleTokens} from "../../utilities/RoleTokens";
 
 export default function DashboardComponent() {
   const { data: session } = useSession();
@@ -34,107 +35,11 @@ export default function DashboardComponent() {
     setUserData(data);
   };
 
-  const reloadSession = () => {
-    console.log("reloading")
-    const event = new Event("visibilitychange");
-    document.dispatchEvent(event);
-  };
-
-  // FUNCTION TO CREATE THE ROLE TAGS DEPENDING ON USER ROLES
-  const tokenSwitch = (roles: string | undefined, index: number) => {
-    switch (roles) {
-      case "Fullstack Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md "
-          >
-            <div className="h-4 w-4 bg-purple-500 rounded-full"></div>
-            <span className="font-bold text-white">FullStack</span>
-          </div>
-        );
-      case "Frontend Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-green-500 rounded-full"></div>
-            <span className="font-bold text-white">Front-End</span>
-          </div>
-        );
-      case "Backend Developer":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-blue-500 rounded-full"></div>
-            <span className="font-bold text-white">Back-End</span>
-          </div>
-        );
-      case "Project Manager":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-yellow-500 rounded-full"></div>
-            <span className="font-bold text-white">PM</span>
-          </div>
-        );
-      case "QA Tester":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-red-500 rounded-full"></div>
-            <span className="font-bold text-white">QA Tester</span>
-          </div>
-        );
-      case "UX/UI":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-pink-500 rounded-full"></div>
-            <span className="font-bold text-white">UX/UI</span>
-          </div>
-        );
-      case "DevOps":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-emerald-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-black rounded-full"></div>
-            <span className="font-bold text-white">DevOps</span>
-          </div>
-        );
-      case "Regular Admin":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-white rounded-full"></div>
-            <span className="font-bold text-white">Admin</span>
-          </div>
-        );
-      case "Super Admin":
-        return (
-          <div
-            key={index}
-            className="flex items-center gap-1 bg-orange-900 w-fit py-1 px-3 rounded-md"
-          >
-            <div className="h-4 w-4 bg-pink-400 rounded-full"></div>
-            <span className="font-bold text-white">Super Admin</span>
-          </div>
-        );
-    }
-  };
+  // const reloadSession = () => {
+  //   console.log("reloading")
+  //   const event = new Event("visibilitychange");
+  //   document.dispatchEvent(event);
+  // };
 
   useEffect(() => {
     if(session) {
@@ -186,7 +91,7 @@ export default function DashboardComponent() {
               Please set your roles in settings
             </span>
           ) : (
-            userRoles.map((role, index) => tokenSwitch(role, index))
+            userRoles.map((role, index) => RoleTokens(role, index))
           )}
         </div>
       </div>
