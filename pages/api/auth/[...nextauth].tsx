@@ -51,7 +51,7 @@ export const authOptions:NextAuthOptions = {
   callbacks: {
     async session({session, token}) {
       session.user = token;
-      const isAdmin = token.role.includes("Admin")
+      const isAdmin = token?.role?.includes("Admin")
 
       if (token?.id) {
         const url = `http://localhost:8080/${isAdmin ? 'admins' : 'dibs'}/${token?.id}`;

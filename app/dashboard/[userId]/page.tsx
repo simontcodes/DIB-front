@@ -16,6 +16,7 @@ import DashboardComponent from "./DashboardComponent";
 import ProjectBoardComponent from "./ProjectBoardComponent";
 import MembersComponent from "./MembersComponent";
 import SettingsComponent from "./SettingsComponent";
+import CurrentTeamComponent from "./CurrentTeamComponent";
 
 // type PageProps = {
 //   params: {
@@ -186,7 +187,7 @@ export default function Dashboard() {
       <div className="w-full pt-16">
         {viewingDashboard?<DashboardComponent />:<></>}
         {viewingMembers?<MembersComponent />:<></>}
-        {viewingTeam?<h1>Team Board</h1>:<></>}
+        {viewingTeam?<CurrentTeamComponent />:<></>}
         {viewingProjectBoard?<ProjectBoardComponent />:<></>}
         {viewingProjectHistory?<h1>Project History</h1>:<></>}
         {viewingSettings?<SettingsComponent />:<></>}

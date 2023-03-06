@@ -14,13 +14,15 @@ type Project = {
   status: string
 }
 
+type TeamUpdateBody = {
+  team: string | undefined,
+}
+
 export default function ProjectBoardComponent() {
 
   const { data:session } = useSession()
 
   const [projectData, setProjectData] = useState<Project[]>()
-
-  const testProjects = [1,2,3,4]
 
   const fetchProjects = async () => {
     const res = await fetch(`http://localhost:8080/projects`, {
@@ -32,12 +34,26 @@ export default function ProjectBoardComponent() {
     });
 
     const data = await res.json()
-    const dataList = []
-    for (let i = 0; i < data.length; i++) {
-      dataList.push(data[i])
-    }
-    console.log(dataList)
     setProjectData(data)
+  }
+
+  // PATCH REQUEST TO UPDATE USER
+  const updateUser = async (updateBody: TeamUpdateBody) => {
+    const res = await fetch(`http://localhost:8080/dibs/${session?.user?.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updateBody),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${session?.user?.token}`
+      }
+    })
+    console.log(res)
+  }
+
+  const handleTeamUpdateSubmit =(teamId: string | undefined) => {
+    // const updateBody = {team:teamId}
+    // updateUser(updateBody)
+    console.log(teamId)
   }
 
   useEffect(() => {
@@ -71,7 +87,7 @@ export default function ProjectBoardComponent() {
                   />
                 }
               </div>
-              <span className="font-bold text-white text-2xl">{project.company}</span>
+              <span className="font-bold text-white text-2xl" onClick={() => handleTeamUpdateSubmit(project.assignedTeam)}>{project.company}</span>
             </div>
             <div className="bottom flex flex-col gap-2 p-4 h-[45%]">
               <span className="font-bold text-white">Available Roles</span>
