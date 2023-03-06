@@ -2,6 +2,7 @@ export interface User {
   id?: any;
   name?: string | null | undefined;
   role?: string | undefined;
+  team?: string | undefined;
   token?: any;
 }
 export interface UserData {

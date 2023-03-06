@@ -1,30 +1,32 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
-
 // TO GET THE SESSION AND USER FROM NEXT AUTH
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import {RoleTokens} from "../../utilities/RoleTokens";
 
-type Member = {
+type MemberList = {
   name: string,
   email: string,
   role: string[],
   _id: string,
 }
 
-export default function MembersComponent() {
+type Team = {
+  name: string,
+  teammates: {role:string, user:string}[],
+  id: string,
+}
+
+export default function CurrentTeamMemberComponent() {
 
   const { data: session } = useSession();
 
-  const [membersList, setMembersList] = useState<Member[]>([])
+  const [teamMemberList, setTeamMemberList] = useState<MemberList[]>([])
+  const [team, setTeam] = useState<Team>()
 
   // FUNCTION TO FETCH USER
-  const fetchMembers = async () => {
+  const fetchTeamMember = async (teamId: string | undefined) => {
     // const isAdmin = session?.user?.role?.includes("Admin");
-    const res = await fetch(`http://localhost:8080/dibs`, {
+    const res = await fetch(`http://localhost:8080/teams/${teamId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -33,25 +35,54 @@ export default function MembersComponent() {
       }
     );
     const data = await res.json();
-    setMembersList(data)
+    setTeam(data)
+
+    const promises = []
+    const teamMembersList:MemberList[] = []
+    for (let i =0; i < data.teammates.length; i++) {
+      promises.push(fetch(`http://localhost:8080/dibs/${data.teammates[i].user}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${session?.user?.token}`,
+        },
+      }).then((res) => res.json())
+      .then((res) => teamMembersList.push(res))
+      .catch((error) => {console.log(error.message)})
+      )
+    }
+    Promise.all(promises).then(() => {
+      // const sortedteamMembersList = [...teamMembersList].sort((a, b) => {
+      //   return b.gameCreation - a.gameCreation
+      // })
+      setTeamMemberList(teamMembersList)
+    })
   };
 
   useEffect(() => {
-    if(session) {
-      fetchMembers();
+    if(session && session?.user?.team) {
+      fetchTeamMember(session?.user?.team);
     }
   }, [session]);
 
-  // if (!userData) {
-  //   return <p>Loading</p>;
-  // }
+  if (!teamMemberList) {
+    return <p>Loading</p>;
+  }
+  
+  if (!session?.user?.team) {
+    return (
+      <section className="flex flex-col items-center px-8">
+        <h1 className="text-4xl font-bold mb-8">You currently are not in a team.</h1>
+      </section>
+    )
+  }
 
   return (
-    <section className="px-8">
-      <h1 className="text-4xl font-bold mb-8">Members</h1>
+    <section className="flex flex-col items-center px-8">
+      <h1 className="text-4xl font-bold mb-8">{team?.name}</h1>
       <div className="flex flex-wrap justify-center gap-y-8 gap-x-4">
-        {membersList.map((member) => 
-        <div className="flex flex-col relative items-center w-[17rem] h-fit bg-gray-900 mt-10 rounded-2xl">
+        {teamMemberList.map((member) => 
+        <div className="flex flex-col relative items-center w-[17rem] h-fit bg-gray-900 mt-10 rounded-2xl" key={member._id}>
           <div className="flex flex-shrink-0 justify-center h-[8rem] w-full">
             <div className="absolute -top-10">
               <div className="flex justify-center relative">
