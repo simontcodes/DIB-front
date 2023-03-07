@@ -1,9 +1,13 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const Navbar = () => {
 
   const {data: session} = useSession()
+
+  const pathname = usePathname()
+  console.log()
 
   const handleSignOut = () => {
     localStorage.removeItem("User_Id")
@@ -19,26 +23,26 @@ const Navbar = () => {
           DIB
         </div>
         <ul className='flex gap-4 text-white'>
-          <li className='text-green'>
+          <li className={pathname == '/'?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
             <Link href='/'>Home</Link>
           </li>
-          <li>
+          <li className={pathname == '/about'?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
             <Link href='/about'>About</Link>
           </li>
-          <li>
+          <li className={pathname == '/showcase'?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
             <Link href='/showcase'>Projects</Link>
           </li>
-          <li>
+          <li className={pathname == '/companies'?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
             <Link href='/companies'>Companies</Link>
           </li>
-          <li>
+          <li className={pathname == '/developers'?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
             <Link href='/developers'>Developers</Link>
           </li>
         </ul>
         {session?.user && 
           <ul className='flex gap-4 text-white'>
             {/* <Link href={`/dashboard/`}>UserDashboard (Temp)</Link> */}
-            <li className='text-green'>
+            <li className={pathname == `/dashboard/${session.user.id}`?'font-bold [text-shadow:_2px_2px_4px_rgb(0_0_0_/_100%)]':''}>
               <Link href={`/dashboard/${session.user.id}`}>UserDashboard (Temp)</Link>
             </li>
           </ul>

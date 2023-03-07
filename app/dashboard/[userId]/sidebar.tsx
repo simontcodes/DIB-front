@@ -1,4 +1,5 @@
 import SideBarUserBar from "./sidebar-userbar";
+import Link from 'next/link'
 
 export default function SideBar({
     handleViewing,
